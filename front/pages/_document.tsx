@@ -1,14 +1,16 @@
 // pages/_document.tsx
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from "next/document";
+
 export default class CustomDocument extends Document {
   render() {
     return (
       <Html>
         <Head>
           <meta property="custom" content="123123" />
+          <title>MOZUKA 메인화면</title>
         </Head>
         <body>
-          <Main />
+        <Main />
         </body>
         <NextScript />
       </Html>
