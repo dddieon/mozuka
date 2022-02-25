@@ -1,7 +1,14 @@
-import { css } from '@emotion/react';
+const colors = {
+  theme: '#4d66f3',
+  gray: '#f7f8fa',
+  white: '#ffffff',
+  black: '#2b2e4a',
+};
 
-const variables = css`
-  $theme-color: hotpink;
-`;
+const fontSizes = {
+  small: '12px',
+  normal: '16px',
+  big: '26px',
+};
 
-export default variables;
+export { colors, fontSizes };

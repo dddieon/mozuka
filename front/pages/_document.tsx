@@ -6,7 +6,7 @@ export default class CustomDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta property="custom" content="123123" />
+          <title>MOZUKA</title>
         </Head>
         <body>
         <Main />

@@ -138,11 +138,6 @@ const reset = css`
   input {
     outline: none;
   }
-
-  #wrap {
-    max-width: 860px;
-    margin: 0 auto;
-  }
 `;
 
 export default reset;
