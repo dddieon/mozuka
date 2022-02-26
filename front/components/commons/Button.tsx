@@ -28,6 +28,7 @@ const Button: FunctionComponent<Props> = (props) => {
 
   return (
     <button
+      type="button"
       onClick={onClick}
       css={{
         display: 'inline-block',

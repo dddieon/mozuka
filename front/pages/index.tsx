@@ -83,7 +83,7 @@ const Home: NextPage = () => {
         </div>
         <div className="main-button-wrap">
           <Link href={'/edit'} bg={'theme'}>시작하기</Link>
-          <Link href={'/gift'}>코드로 조회하기</Link>
+          {/*<Link href={'/gift'}>코드로 조회하기</Link>*/}
         </div>
         <button className="main-how">HOW TO</button>
       </div>

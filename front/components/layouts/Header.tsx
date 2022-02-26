@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { css } from '@emotion/react';
+import {useRouter} from "next/router";
 
 const navStyle = css`
   display: flex;
@@ -12,15 +13,16 @@ const navStyle = css`
     background-size: 1.2rem 2rem;
     background-position: left center;
     background-repeat: no-repeat;
-    background-image: url('./images/arrow.svg');
+    background-image: url('/images/arrow.svg');
   }
 `;
 
 const Header: FunctionComponent = () => {
+  const router = useRouter();
   return (
     <header>
       <nav css={navStyle}>
-        <button />
+        <button onClick={() => router.back()}/>
       </nav>
     </header>
   );

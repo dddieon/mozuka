@@ -138,6 +138,14 @@ const reset = css`
   input {
     outline: none;
   }
+
+  input,
+  textarea,
+  button,
+  select,
+  a {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
 `;
 
 export default reset;
