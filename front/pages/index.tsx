@@ -2,17 +2,10 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 import { css } from '@emotion/react';
 import Layout from '../components/layouts/Layout';
-import {Span, P, Button, Link} from '../components/commons';
+import {Span, P, Link} from '../components/commons';
 import {colors, fontSizes, fontWeights, screen} from '../styles/variables';
 
 const mainStyle = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0 3rem 3rem;
-  min-height: calc(100vh - 6.8rem);
-
   > .main-image {
     width: 35rem;
     ${screen.mobile} {
@@ -89,8 +82,8 @@ const Home: NextPage = () => {
           </div>
         </div>
         <div className="main-button-wrap">
-          <Link href={'/give'}>시작하기</Link>
-          <Link href={'/gift'} bg={'theme'}>코드로 조회하기</Link>
+          <Link href={'/edit'} bg={'theme'}>시작하기</Link>
+          <Link href={'/gift'}>코드로 조회하기</Link>
         </div>
         <button className="main-how">HOW TO</button>
       </div>

@@ -28,6 +28,8 @@ const fixedStyle = (value: OwnProps['isFixed']):object => {
 const Div = styled.div`
   > a {
     display: block;
+    padding: 1.6rem;
+    text-align: center;
   }
 `
 
@@ -37,10 +39,7 @@ const Link: FunctionComponent<Props> = (props) => {
   return (
     <Div
       css={{
-        width: '100%',
         borderRadius: '1rem',
-        padding: '1.6rem',
-        textAlign: 'center',
         backgroundColor: bg ? colors[bg] : colors.gray,
         color: bg !== "theme" ? colors.black : colors.white,
         border: bd ? `1px solid ${colors[bd]}` : colors.theme,

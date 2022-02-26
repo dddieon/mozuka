@@ -82,7 +82,7 @@ const Gift: NextPage = () => {
           </div>
         </div>
         <div className="main-button-wrap">
-          <Link href={'/edit'}>시작하기</Link>
+          <Link href={'/give'}>시작하기</Link>
           <Link href={'/gift'} bg={'theme'}>코드로 조회하기</Link>
         </div>
         <button className="main-how">HOW TO</button>
