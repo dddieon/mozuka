@@ -7,7 +7,7 @@ const colors = {
 };
 
 const fontSizes = {
-  small: '1.2rem',
+  small: '1.4rem',
   normal: '1.6rem',
   big: '2.6rem',
 };

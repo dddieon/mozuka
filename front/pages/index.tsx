@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 import { css } from '@emotion/react';
 import Layout from '../components/layouts/Layout';
-import {Span, P, Button} from '../components/commons';
+import {Span, P, Button, Link} from '../components/commons';
 import {colors, fontSizes, fontWeights, screen} from '../styles/variables';
 
 const mainStyle = css`
@@ -16,7 +16,7 @@ const mainStyle = css`
   > .main-image {
     width: 35rem;
     ${screen.mobile} {
-      width: 25rem;
+      width: 20rem;
     }
   }
 
@@ -46,7 +46,7 @@ const mainStyle = css`
     gap: 2.5rem; 
     width: 100%; 
     margin-bottom: 4.5rem; 
-    padding: 5.8rem;
+    padding: 0 5.8rem;
   }
   
   > .main-how {
@@ -80,9 +80,6 @@ const Home: NextPage = () => {
               선물추첨 서비스입니다.
               선물추첨 서비스입니다.
               선물추첨 서비스입니다.
-              선물추첨 서비스입니다.
-              선물추첨 서비스입니다.
-              선물추첨 서비스입니다.
             </P>
             <button onClick={(e) => {console.log(e)}}>
               <Span color={'theme'} weight={'bold'}>
@@ -92,8 +89,8 @@ const Home: NextPage = () => {
           </div>
         </div>
         <div className="main-button-wrap">
-          <Button onClick={e => console.log(e)}>시작하기</Button>
-          <Button onClick={e => console.log(e)} bg={"theme"}>코드로 조회하기</Button>
+          <Link href={'/give'}>시작하기</Link>
+          <Link href={'/gift'} bg={'theme'}>코드로 조회하기</Link>
         </div>
         <button className="main-how">HOW TO</button>
       </div>
