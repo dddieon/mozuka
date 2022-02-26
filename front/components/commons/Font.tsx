@@ -1,46 +1,59 @@
 import React, { FunctionComponent } from 'react';
 import { css } from '@emotion/react';
-import { colors, fontSizes } from '../../styles/variables';
-
-export interface fontType {
-  small: string;
-  normal: string;
-  big: string;
-}
+import { colors, fontSizes, fontWeights } from '../../styles/variables';
+import {Button} from "./Button";
 
 interface OwnProps {
-  size: keyof fontType;
-  text: string;
-  color?: 'gray' | 'theme';
+  size?: keyof typeof fontSizes | null;
+  color?: keyof typeof colors | null;
+  weight?: keyof typeof fontWeights | null; // 여기서 막힘! todo
 }
 
 type Props = OwnProps;
 
-const Font: FunctionComponent<Props> = (props) => {
-  const { size, text, color } = props;
-  if (size === 'big') {
-    return (
-      <h2
-        css={css`
-          color: ${color ? colors[color] : null};
-          font-size: ${fontSizes[size]};
+const Span: FunctionComponent<Props> = (props) => {
+  const { size, color, weight, children } = props;
+  return (
+    <span
+      css={css`
+          color: ${color ? colors[color] : colors.black};
+          font-size: ${size ? fontSizes[size] : fontSizes.normal};
+          font-weight: ${weight ? fontWeights[weight] : fontWeights.medium};
         `}
-      >
-        {text}
-      </h2>
-    );
-  } else {
-    return (
-      <p
-        css={css`
-          color: ${color ? colors[color] : null};
-          font-size: ${fontSizes[size]};
-        `}
-      >
-        {text}
-      </p>
-    );
-  }
+    >
+      {children}
+    </span>
+  );
 };
 
-export default Font;
+const P: FunctionComponent<Props> = (props) => {
+  const { size, color, weight, children } = props;
+  return (
+    <p
+      css={css`
+          color: ${color ? colors[color] : colors.black};
+          font-size: ${size ? fontSizes[size] : fontSizes.normal};
+          font-weight: ${weight ? fontWeights[weight] : fontWeights.medium};
+        `}
+    >
+      {children}
+    </p>
+  );
+};
+
+const H2: FunctionComponent<Props> = (props) => {
+  const { size, color, weight, children } = props;
+  return (
+    <h2
+      css={css`
+          color: ${color ? colors[color] : colors.black};
+          font-size: ${size ? fontSizes[size] : fontSizes.big};
+          font-weight: ${weight ? fontWeights[weight] : fontWeights.bold};
+        `}
+    >
+      {children}
+    </h2>
+  );
+};
+
+export {H2, P, Span, Button};

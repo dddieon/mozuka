@@ -1,14 +1,27 @@
 const colors = {
   theme: '#4d66f3',
   gray: '#f7f8fa',
+  darkGray: '#9A9A9A',
   white: '#ffffff',
   black: '#2b2e4a',
 };
 
 const fontSizes = {
-  small: '12px',
-  normal: '16px',
-  big: '26px',
+  small: '1.2rem',
+  normal: '1.6rem',
+  big: '2.6rem',
 };
 
-export { colors, fontSizes };
+const fontWeights = {
+  regular: 300,
+  medium: 400,
+  bold: 700,
+};
+
+const screen = {
+  pc: '@media (min-width: 1200px)',
+  tablet: '@media (min-width: 768px) and (max-width: 1199px)',
+  mobile: '@media (max-width: 768px)',
+};
+
+export { colors, fontSizes, fontWeights, screen };
