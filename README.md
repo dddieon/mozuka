@@ -1,3 +1,8 @@
+## 디자인 미리보기
+
+![image](https://user-images.githubusercontent.com/59174247/155881666-231cc304-2ce1-441e-8cef-c99ff173806c.png)
+
+
 ## 프론트 개발 사항
 
 ### 프론트 상태관리: Zustand
