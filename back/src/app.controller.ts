@@ -7,6 +7,6 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    return this.appService.getHello();
+    return this.appService.getHello(); // AppService.getHello()로 하지 않는 이유: 결합x, 단일 책임분리
   }
 }
