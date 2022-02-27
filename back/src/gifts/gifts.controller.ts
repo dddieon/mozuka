@@ -6,11 +6,6 @@ import { GiftsService } from './gifts.service';
 export class GiftsController {
   constructor(private giftsService: GiftsService) {}
 
-  @Get()
-  getGifts() {
-    return 'gift';
-  }
-
   @Get('/:id')
   getGift(@Param('id') giftId: string) {
     return this.giftsService.getGift(giftId);
