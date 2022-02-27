@@ -1,8 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Gifts } from './gifts/entity/gifts.entity';
-import dotenv from 'dotenv';
 
-dotenv.config();
 const config: TypeOrmModuleOptions = {
   type: 'mysql',
   host: 'localhost',
