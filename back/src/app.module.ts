@@ -3,18 +3,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerMiddleware } from '../middlewares/logger.middleware';
-
-// const getEnv = async () => {
-//   const response = await asxios.get('/비밀키 요청');
-//   return response.data;
-// };
+import { GiftsModule } from './gifts/gifts.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      //load: [getEnv]
     }),
+    GiftsModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
