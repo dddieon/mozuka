@@ -2,6 +2,9 @@
 
 ![image](https://user-images.githubusercontent.com/59174247/155881666-231cc304-2ce1-441e-8cef-c99ff173806c.png)
 
+<br>
+<hr>
+<br>
 
 ## 프론트 개발 사항
 
@@ -52,3 +55,17 @@
     1. <a href="https://medium.com/crocusenergy/nestjs-typeorm-%EA%B8%B0%EB%B3%B8-crud-%EC%9E%91%EC%84%B1%ED%95%98%EA%B8%B0-69b9640dc826">
        typeorm 설치 및 엔티티 작성법 참고</a>
     2. <a href="https://kyounghwan01.github.io/blog/etc/nest/controller-service/#user-entities-ts">서비스, 모듈 작성법 참고</a>
+
+<br>
+<hr>
+<br>
+
+## 기타
+
+`배포 관리`
+
+- <a href="https://www.three-snakes.com/git/git-subtree">Git subtree</a>: 하나의 레포지토리에서 프론트/백 코드를 관리하나, 헤로쿠에서 깃레포를 연동하여 즉시
+  배포를 하기 위해서 child 레퍼지토리를 생성하여 분리하는 방식.
+    1. 설치법: child 레포지토리를 생성한 후, parent에서 `git subtree add --prefix=back child master` 를 실행했다 (기존 로컬에서 사용했던 back 폴더는 지워야
+       클론이 가능하다)
+    2. 업데이트: 부모의 origin/master의 변경사항을 child/master로 업데이트 하려면 `git subtree push --prefix=back child master`를 실행
