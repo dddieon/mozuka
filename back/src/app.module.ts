@@ -3,6 +3,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerMiddleware } from '../middlewares/logger.middleware';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import * as ormconfig from './ormconfig';
 import { GiftsModule } from './gifts/gifts.module';
 
 @Module({
@@ -10,6 +12,7 @@ import { GiftsModule } from './gifts/gifts.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    TypeOrmModule.forRoot(ormconfig),
     GiftsModule,
   ],
   controllers: [AppController],

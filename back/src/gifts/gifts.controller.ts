@@ -6,15 +6,19 @@ import { GiftsService } from './gifts.service';
 export class GiftsController {
   constructor(private giftsService: GiftsService) {}
 
-  @Get(':id')
-  getGifts(@Param() param) {
-    console.log(param);
-    return 'get Gifts';
+  @Get()
+  getGifts() {
+    return 'gift';
+  }
+
+  @Get('/:id')
+  getGift(@Param('id') giftId: string) {
+    return this.giftsService.getGift(giftId);
   }
 
   @Post()
-  postGifts(@Body() data: JoinRequestDto) {
-    this.giftsService.postGifts(data);
+  async createGifts(@Body() giftData: JoinRequestDto) {
+    await this.giftsService.createGifts(giftData);
     return;
   }
 }

@@ -42,5 +42,8 @@
 
 `세팅 참고`
 
-- 핫 리로드: https://docs.nestjs.com/recipes/hot-reload
-- 위 방식대로 하되, `@types/webpack-env` 추가 설치해야 ts error 없어짐
+- <a href="https://docs.nestjs.com/recipes/hot-reload">핫 리로드</a> : 위 방식대로 하되, `@types/webpack-env` 추가 설치해야 ts error 없어짐
+- typeorm 세팅:
+    1. <a href="https://medium.com/crocusenergy/nestjs-typeorm-%EA%B8%B0%EB%B3%B8-crud-%EC%9E%91%EC%84%B1%ED%95%98%EA%B8%B0-69b9640dc826">
+       typeorm 설치 및 엔티티 작성법 참고</a>
+    2. <a href="https://kyounghwan01.github.io/blog/etc/nest/controller-service/#user-entities-ts">서비스, 모듈 작성법 참고</a>

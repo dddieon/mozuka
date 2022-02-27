@@ -1,15 +1,17 @@
+import { PickType } from '@nestjs/swagger';
+import { Gifts } from '../entity/gifts.entity';
+
 export enum options {
   gifticon = 'gifticon',
   present = 'present',
   voucher = 'voucher',
 }
 
-export class JoinRequestDto {
-  public giverName: string;
-  public getterName: string;
-  public minimumBudget: number;
-  public maxBudget: number;
-  public option: options[]; // 'gifticon' | 'present' | 'voucher'
-  public retryCount: number;
-  // public password: string;
-}
+export class JoinRequestDto extends PickType(Gifts, [
+  'giverName',
+  'getterName',
+  'minimumBudget',
+  'maxBudget',
+  'retryCount',
+  'password',
+] as const) {}
