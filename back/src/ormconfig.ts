@@ -3,7 +3,7 @@ import { Gifts } from './gifts/entity/gifts.entity';
 
 const config: TypeOrmModuleOptions = {
   type: 'mysql',
-  host: 'localhost',
+  host: 'mozuka-db.cukfkjyuwoff.ap-northeast-2.rds.amazonaws.com',
   port: 3306,
   username: 'root',
   password: '123123123',
