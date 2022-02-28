@@ -3,11 +3,11 @@ import { Gifts } from './gifts/entity/gifts.entity';
 
 const config: TypeOrmModuleOptions = {
   type: 'mysql',
-  host: 'mozuka-db.cukfkjyuwoff.ap-northeast-2.rds.amazonaws.com',
+  host: process.env.DB_HOST,
   port: 3306,
-  username: 'root',
-  password: '123123123',
-  database: 'mozuka',
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
   entities: [Gifts],
   migrations: [__dirname + '/src/migrations/*.ts'],
   cli: { migrationsDir: 'src/migrations' },
