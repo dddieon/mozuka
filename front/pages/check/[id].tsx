@@ -8,6 +8,7 @@ import Layout from '../../components/layouts/Layout';
 import {Button, H2, P} from '../../components/commons';
 import {colors, screen} from '../../styles/variables';
 import {useLogin} from "../../store";
+import {IGift} from "../../store/useLogin";
 
 const giftPageStyle = css`
   .gift-image {
@@ -66,10 +67,7 @@ const giftPageStyle = css`
 `;
 
 interface Props {
-  data: {
-    giverName: string,
-    getterName: string
-  }
+  data: IGift
 }
 
 const Gift = ({data}: Props) => {
@@ -98,38 +96,45 @@ const Gift = ({data}: Props) => {
   return (
     <Layout>
       <div css={giftPageStyle}>
-        <div className="gift-image">
-          <Image
-            src="/images/gift.svg"
-            alt="선물 이미지"
-            width={500}
-            height={500}
-          />
-        </div>
-        <div className="gift-desc">
-          <H2>선물이 도착했어요</H2>
-          <P>
-            {data.giverName}님께서 {data.getterName}님께
-            <br/>
-            선물 추천 티켓을 보내왔습니다
-          </P>
-        </div>
-        <div className="gift-input-wrap">
-          <input type="password"
-                 className={value ? "input-spacing" : ""}
-                 placeholder="암호를 입력해주세요"
-                 value={value}
-                 onChange={(e) => setValue(e.target.value)} max={8}
-                 onFocus={() => setIsInputFocus(true)}
-                 onBlur={() => {
-                   const interval = setInterval(() => {
-                     setIsInputFocus(false);
-                     clearInterval(interval);
-                   }, 100);
-                 }}
-          />
-          <Button isFixed={isInputFocus} onClick={submit} bg={'theme'}>선물 받으러 가기</Button>
-        </div>
+        {
+          data ?
+            <>
+              <div className="gift-image">
+                <Image
+                  src="/images/gift.svg"
+                  alt="선물 이미지"
+                  width={500}
+                  height={500}
+                />
+              </div>
+              <div className="gift-desc">
+                <H2>선물이 도착했어요</H2>
+                <P>
+                  {data.giverName}님께서 {data.getterName}님께
+                  <br/>
+                  선물 추천 티켓을 보내왔습니다
+                </P>
+              </div>
+              <div className="gift-input-wrap">
+                <input type="password"
+                       className={value ? "input-spacing" : ""}
+                       placeholder="암호를 입력해주세요"
+                       value={value}
+                       onChange={(e) => setValue(e.target.value)} max={8}
+                       onFocus={() => setIsInputFocus(true)}
+                       onBlur={() => {
+                         const interval = setInterval(() => {
+                           setIsInputFocus(false);
+                           clearInterval(interval);
+                         }, 100);
+                       }}
+                />
+                <Button isFixed={isInputFocus} onClick={submit} bg={'theme'}>선물 받으러 가기</Button>
+              </div>
+            </>
+            :
+            "잘못된 접근입니다."
+        }
       </div>
     </Layout>
   );

@@ -8,6 +8,17 @@
 
 ## 프론트 개발 사항
 
+### SSG 프레임워크 : Next.js
+
+`사용 이유`
+
+1. 카카오톡 등으로 이미지를 공유할 때 meta tag의 정보(썸네일, 설명)를 활용해야 해서
+2. 추후 반영되는 기능 (선물보기 등)에서 SEO가 필요하기 때문에
+
+`참고 사항`
+
+1. Dynamic routing된 페이지에서는 pathname이 `router.asPath`에 담긴다.
+
 ### 프론트 상태관리: Zustand
 
 `사용 이유`
@@ -27,6 +38,10 @@
 1. 성공, 에러, 로딩 처리, 캐싱 등의 기능 제공
 2. hook 형식으로 간단하게 사용
 3. swr 보다 번들사이즈는 크지만, devtool을 제공하고 5분간 비활성된 캐시데이터 garbage collected 등의 기능 제공에서 차이
+
+`참고 사항`
+
+1. (추후반영) <a href="https://react-query.tanstack.com/guides/ssr">react-query with next.js</a>
 
 ### CSS: Emotion
 
