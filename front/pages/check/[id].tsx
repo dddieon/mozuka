@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Layout from '../../components/layouts/Layout';
 import {Button, H2, P} from '../../components/commons';
 import {colors, screen} from '../../styles/variables';
-import {useStore} from "../../store";
+import {useLogin} from "../../store";
 
 const giftPageStyle = css`
   .gift-image {
@@ -81,7 +81,7 @@ const Gift = ({data}: Props) => {
   const submit = async (e: React.MouseEvent) => {
     e.preventDefault();
 
-    const setLogin = useStore.getState().setLogin;
+    const setLogin = useLogin.getState().setLogin;
     if (value.length === 3) {
       setLogin({
         // saved to localstorage
