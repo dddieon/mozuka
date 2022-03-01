@@ -16,6 +16,10 @@
 2. Provider로 감싸지 않고 전역상태에 접근하는 방식이 깔끔하다
 3. redux-devtools를 사용할 수도 있다
 
+`참고 사항`
+
+1. <a href="https://github.com/victorkvarghese/react-native-query-boilerplate">로컬스토리지와 함께 관리하는 코드 참고</a>
+
 ### 서버 상태관리: React-query
 
 `사용 이유`
@@ -33,7 +37,7 @@
 
 `세팅 참고`
 
-- @emotion/core 이외 설치 필요:  @emotion/react @emotion/styled @motion/babel-plugin
+- @emotion/core 이외 설치 필요: `@emotion/react @emotion/styled @motion/babel-plugin`
 
 <br>
 <hr>
@@ -66,6 +70,7 @@
 
 - <a href="https://www.three-snakes.com/git/git-subtree">Git subtree</a>: 하나의 레포지토리에서 프론트/백 코드를 관리하나, 헤로쿠에서 깃레포를 연동하여 즉시
   배포를 하기 위해서 child 레퍼지토리를 생성하여 분리하는 방식.
-    1. 설치법: child 레포지토리를 생성한 후, parent에서 `git subtree add --prefix=back child master` 를 실행했다 (기존 로컬에서 사용했던 back 폴더는 지워야
-       클론이 가능하다)
-    2. 업데이트: 부모의 origin/master의 변경사항을 child/master로 업데이트 하려면 `git subtree push --prefix=back child master`를 실행
+    1. 설치법: child 레포지토리를 생성한 후, parent에서 `git subtree add --prefix=back child master` <br />
+       (기존 로컬에서 사용했던 back 폴더는 지워야 클론이 가능하다)
+    2. 업데이트: 부모의 origin/master의 변경사항을 child/master로 업데이트 하려면  <br />
+       `git subtree push --prefix=back child master`를 실행
