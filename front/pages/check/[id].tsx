@@ -1,13 +1,12 @@
 import React, {useState} from "react";
-import type {NextPage} from 'next';
+import axios from "axios";
+import {GetServerSideProps} from "next";
 import {useRouter} from "next/router";
-import Image from 'next/image';
 import {css} from '@emotion/react';
+import Image from 'next/image';
 import Layout from '../../components/layouts/Layout';
 import {Button, H2, P} from '../../components/commons';
 import {colors, screen} from '../../styles/variables';
-import {useQuery} from "react-query";
-import axios from "axios";
 import {useStore} from "../../store";
 
 const giftPageStyle = css`
@@ -64,28 +63,30 @@ const giftPageStyle = css`
       }
     }
   }
-
 `;
 
-const Gift: NextPage = () => {
+interface Props {
+  data: {
+    giverName: string,
+    getterName: string
+  }
+}
+
+const Gift = ({data}: Props) => {
   const [value, setValue] = useState("");
   const [isInputFocus, setIsInputFocus] = useState(false);
   const router = useRouter();
   const {id} = router.query;
 
-  const {
-    data,
-    isLoading,
-    error
-  } = useQuery(['gift', id], () => axios.get(`https://mozuka-back.herokuapp.com/api/gifts/${id}`));
-
-  const submit = (e: React.MouseEvent): void => {
+  const submit = async (e: React.MouseEvent) => {
     e.preventDefault();
+
     const setLogin = useStore.getState().setLogin;
     if (value.length === 3) {
       setLogin({
+        // saved to localstorage
         id: String(id),
-        data: data?.data,
+        data,
         isLogin: true,
       });
       router.push(`/gift/${id}`).then();
@@ -97,49 +98,65 @@ const Gift: NextPage = () => {
   return (
     <Layout>
       <div css={giftPageStyle}>
-        {
-          isLoading ? "로딩중입니다." :
-            <>
-              <div className="gift-image">
-                <Image
-                  src="/images/gift.svg"
-                  alt="선물 이미지"
-                  width={500}
-                  height={500}
-                />
-              </div>
-              <div className="gift-desc">
-                <H2>선물이 도착했어요</H2>
-                <P>
-                  {data?.data.giverName}님께서 {data?.data.getterName}님께
-                  <br/>
-                  선물 추천 티켓을 보내왔습니다
-                </P>
-              </div>
-              <div className="gift-input-wrap">
-                <input type="password"
-                       className={value ? "input-spacing" : ""}
-                       placeholder="암호를 입력해주세요"
-                       value={value}
-                       onChange={(e) => setValue(e.target.value)} max={8}
-                       onFocus={() => setIsInputFocus(true)}
-                       onBlur={() => {
-                         const interval = setInterval(() => {
-                           setIsInputFocus(false);
-                           clearInterval(interval);
-                         }, 100);
-                       }}
-                />
-                <Button isFixed={isInputFocus} onClick={submit} bg={'theme'}>선물 받으러 가기</Button>
-              </div>
-            </>
-        }
-        {
-          error ? "잘못된 요청입니다." : ""
-        }
+        <div className="gift-image">
+          <Image
+            src="/images/gift.svg"
+            alt="선물 이미지"
+            width={500}
+            height={500}
+          />
+        </div>
+        <div className="gift-desc">
+          <H2>선물이 도착했어요</H2>
+          <P>
+            {data.giverName}님께서 {data.getterName}님께
+            <br/>
+            선물 추천 티켓을 보내왔습니다
+          </P>
+        </div>
+        <div className="gift-input-wrap">
+          <input type="password"
+                 className={value ? "input-spacing" : ""}
+                 placeholder="암호를 입력해주세요"
+                 value={value}
+                 onChange={(e) => setValue(e.target.value)} max={8}
+                 onFocus={() => setIsInputFocus(true)}
+                 onBlur={() => {
+                   const interval = setInterval(() => {
+                     setIsInputFocus(false);
+                     clearInterval(interval);
+                   }, 100);
+                 }}
+          />
+          <Button isFixed={isInputFocus} onClick={submit} bg={'theme'}>선물 받으러 가기</Button>
+        </div>
       </div>
     </Layout>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async ({params, res}) => {
+  // const cookie = req ? req.headers.cookie : '';
+  // axios.defaults.headers.Cookie = '';
+  // if (req && cookie) {
+  //   axios.defaults.headers.Cookie = cookie;
+  // }
+  try {
+    const id = params?.id;
+    const {data} = await axios.get(`/api/gifts/${id}`);
+    return {
+      props: {
+        data
+      }
+    }
+  } catch {
+    res.statusCode = 404;
+    return {
+      props: {
+        data: null
+      }
+    };
+  }
+}
 
 export default Gift;

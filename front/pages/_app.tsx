@@ -1,17 +1,21 @@
-import type { AppProps } from 'next/app';
+import type {AppProps} from 'next/app';
 import Head from 'next/head';
-import { QueryClientProvider, QueryClient } from 'react-query';
+import {QueryClient, QueryClientProvider} from 'react-query';
 import GlobalStyle from '../styles/GlobalStyle';
+import axios from "axios";
 
 const queryClient = new QueryClient();
 
-function MyApp({ Component, pageProps }: AppProps) {
+axios.defaults.baseURL = 'https://mozuka-back.herokuapp.com/';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+function MyApp({Component, pageProps}: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
         <title>제목</title>
       </Head>
-      <GlobalStyle />
+      <GlobalStyle/>
       <Component {...pageProps} />
     </QueryClientProvider>
   );
