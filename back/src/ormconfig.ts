@@ -1,10 +1,14 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Gifts } from './gifts/entity/gifts.entity';
 import { Items } from './gifts/entity/items.entity';
+import dotenv from 'dotenv';
+
+if (process.env.NODE_ENV !== 'production') dotenv.config();
 
 const config: TypeOrmModuleOptions = {
   type: 'mysql',
-  host: process.env.DB_HOST,
+  host:
+    process.env.NODE_ENV !== 'production' ? process.env.DB_HOST : 'localhost',
   port: 3306,
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
