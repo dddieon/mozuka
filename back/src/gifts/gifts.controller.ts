@@ -11,6 +11,11 @@ export class GiftsController {
     return this.giftsService.getGift(giftId);
   }
 
+  @Post('/:id/:option')
+  async createResult(@Param('id') optionData: string) {
+    return this.giftsService.createResult(optionData);
+  }
+
   @Post()
   async createGifts(@Body() giftData: JoinRequestDto) {
     await this.giftsService.createGifts(giftData);

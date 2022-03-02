@@ -1,5 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Gifts } from './gifts/entity/gifts.entity';
+import { Items } from './gifts/entity/items.entity';
 
 const config: TypeOrmModuleOptions = {
   type: 'mysql',
@@ -8,12 +9,12 @@ const config: TypeOrmModuleOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: [Gifts],
+  entities: [Gifts, Items],
   migrations: [__dirname + '/src/migrations/*.ts'],
   cli: { migrationsDir: 'src/migrations' },
   autoLoadEntities: true,
   charset: 'utf8mb4',
-  synchronize: true,
+  synchronize: false,
   logging: true,
   keepConnectionAlive: true,
 };

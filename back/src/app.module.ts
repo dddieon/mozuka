@@ -6,6 +6,7 @@ import { LoggerMiddleware } from '../middlewares/logger.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from './ormconfig';
 import { GiftsModule } from './gifts/gifts.module';
+import { ItemsModule } from './items/items.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { GiftsModule } from './gifts/gifts.module';
     }),
     TypeOrmModule.forRoot(ormconfig),
     GiftsModule,
+    ItemsModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],

@@ -6,6 +6,6 @@ export class AppService {
   constructor(private readonly configService: ConfigService) {}
 
   getHello(): string {
-    return this.configService.get('DB_PASSWORD');
+    return 'Hello world!';
   }
 }
