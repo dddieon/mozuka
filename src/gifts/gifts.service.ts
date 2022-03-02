@@ -9,7 +9,7 @@ import { v4 as uuidV4 } from 'uuid';
 export class GiftsService {
   constructor(
     @InjectRepository(Gifts)
-    private giftsRepository: Repository<Gifts>,
+    private giftsRepository: Repository<Gifts>, // @InjectRepository(Items) // private itemsRepository: Repository<Items>,
   ) {}
 
   async getGift(id: string) {
@@ -22,6 +22,12 @@ export class GiftsService {
       throw new NotFoundException(`user id ${id} not found`);
     }
     return user;
+  }
+
+  async createResult(optionData) {
+    // 1. get Items
+    // 2. random choice
+    // 3. create result
   }
 
   async createGifts(giftData: JoinRequestDto) {
