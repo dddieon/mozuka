@@ -60,7 +60,10 @@ const Gift = () => {
 
   const submit = async (e: React.MouseEvent) => {
     e.preventDefault();
-    mutation.mutate(value);
+    mutation.mutate({
+      id: router.query.id,
+      value
+    });
   }
 
   return (
@@ -74,7 +77,7 @@ const Gift = () => {
           <select value={value} onChange={(e) => setValue(e.target.value)}>
             <option value={"gifticon"}>기프티콘</option>
             <option value={"present"}>선물</option>
-            <option value={"voucher"}>상품권</option>
+            <option value={"cash"}>현금</option>
           </select>
           {
             !mutation.isLoading ?

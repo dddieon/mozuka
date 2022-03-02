@@ -4,7 +4,7 @@ import { Gifts } from '../entity/gifts.entity';
 export enum options {
   gifticon = 'gifticon',
   present = 'present',
-  voucher = 'voucher',
+  voucher = 'cash',
 }
 
 export class JoinRequestDto extends PickType(Gifts, [
