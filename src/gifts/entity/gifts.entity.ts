@@ -18,7 +18,7 @@ export class Gifts {
   maxBudget: number;
 
   // @Column()
-  // option: options[]; // 'gifticon' | 'present' | 'voucher'
+  // option: options[]; // 'gifticon' | 'present' | 'cash'
 
   @Column()
   retryCount: number;
