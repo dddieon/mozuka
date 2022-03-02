@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { JoinRequestDto } from './dto/join.request.dto';
+import { GiftRequestDto } from './dto/gift.request.dto';
 import { GiftsService } from './gifts.service';
 
 @Controller('api/gifts')
@@ -17,7 +17,7 @@ export class GiftsController {
   }
 
   @Post()
-  async createGifts(@Body() giftData: JoinRequestDto) {
+  async createGifts(@Body() giftData: GiftRequestDto) {
     await this.giftsService.createGifts(giftData);
     return;
   }

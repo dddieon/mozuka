@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { JoinRequestDto } from './dto/join.request.dto';
+import { GiftRequestDto } from './dto/gift.request.dto';
 import { Gifts } from './entity/gifts.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -30,7 +30,7 @@ export class GiftsService {
     // 3. create result
   }
 
-  async createGifts(giftData: JoinRequestDto) {
+  async createGifts(giftData: GiftRequestDto) {
     const uuid = uuidV4();
     console.log(`${uuid} is creating...`);
     const newGift = {

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ItemRequestDto } from '../gifts/dto/item.request.dto';
+import { ItemRequestDto } from './dto/item.request.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Items } from '../gifts/entity/items.entity';
+import { Items } from './entity/items.entity';
 
 @Injectable()
 export class ItemsService {

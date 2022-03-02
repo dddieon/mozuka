@@ -7,7 +7,7 @@ export enum options {
   voucher = 'cash',
 }
 
-export class JoinRequestDto extends PickType(Gifts, [
+export class GiftRequestDto extends PickType(Gifts, [
   'giverName',
   'getterName',
   'minimumBudget',
