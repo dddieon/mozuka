@@ -1,6 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Gifts } from './gifts/entity/gifts.entity';
-import { Items } from './gifts/entity/items.entity';
+import { Items } from './items/entity/items.entity';
 import dotenv from 'dotenv'; // todo local server
 
 if (process.env.NODE_ENV !== 'production') dotenv.config();
