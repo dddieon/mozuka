@@ -1,6 +1,6 @@
-import React, { FunctionComponent } from 'react';
-import { css } from '@emotion/react';
-import { colors, fontSizes, fontWeights } from '../../styles/variables';
+import React, {FunctionComponent} from 'react';
+import {css} from '@emotion/react';
+import {colors, fontSizes, fontWeights} from '../../styles/variables';
 import {Button} from "./Button";
 
 interface OwnProps {
@@ -12,14 +12,15 @@ interface OwnProps {
 type Props = OwnProps;
 
 const Span: FunctionComponent<Props> = (props) => {
-  const { size, color, weight, children } = props;
+  const {size, color, weight, children} = props;
   return (
     <span
       css={css`
-          color: ${color ? colors[color] : colors.black};
-          font-size: ${size ? fontSizes[size] : fontSizes.normal};
-          font-weight: ${weight ? fontWeights[weight] : fontWeights.medium};
-        `}
+        color: ${color ? colors[color] : colors.black};
+        font-size: ${size ? fontSizes[size] : fontSizes.normal};
+        font-weight: ${weight ? fontWeights[weight] : fontWeights.medium};
+        word-break: keep-all;
+      `}
     >
       {children}
     </span>
@@ -27,14 +28,15 @@ const Span: FunctionComponent<Props> = (props) => {
 };
 
 const P: FunctionComponent<Props> = (props) => {
-  const { size, color, weight, children } = props;
+  const {size, color, weight, children} = props;
   return (
     <p
       css={css`
-          color: ${color ? colors[color] : colors.black};
-          font-size: ${size ? fontSizes[size] : fontSizes.normal};
-          font-weight: ${weight ? fontWeights[weight] : fontWeights.medium};
-        `}
+        color: ${color ? colors[color] : colors.black};
+        font-size: ${size ? fontSizes[size] : fontSizes.normal};
+        font-weight: ${weight ? fontWeights[weight] : fontWeights.medium};
+        word-break: keep-all;
+      `}
     >
       {children}
     </p>
@@ -42,14 +44,15 @@ const P: FunctionComponent<Props> = (props) => {
 };
 
 const H2: FunctionComponent<Props> = (props) => {
-  const { size, color, weight, children } = props;
+  const {size, color, weight, children} = props;
   return (
     <h2
       css={css`
-          color: ${color ? colors[color] : colors.black};
-          font-size: ${size ? fontSizes[size] : fontSizes.big};
-          font-weight: ${weight ? fontWeights[weight] : fontWeights.bold};
-        `}
+        color: ${color ? colors[color] : colors.black};
+        font-size: ${size ? fontSizes[size] : fontSizes.big};
+        font-weight: ${weight ? fontWeights[weight] : fontWeights.bold};
+        word-break: keep-all;
+      `}
     >
       {children}
     </h2>
