@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from './ormconfig';
 import { GiftsModule } from './gifts/gifts.module';
 import { ItemsModule } from './items/items.module';
+import { ResultsModule } from './results/results.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ItemsModule } from './items/items.module';
     TypeOrmModule.forRoot(ormconfig),
     GiftsModule,
     ItemsModule,
+    ResultsModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
