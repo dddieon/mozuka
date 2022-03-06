@@ -76,6 +76,8 @@
     2. <a href="https://kyounghwan01.github.io/blog/etc/nest/controller-service/#user-entities-ts">서비스, 모듈 작성법 참고</a>
     3. `yarn typeorm schema:sync` 로 entity와 database간의 씽크를 수동으로 맞춘다 (설정으로 하기: 권장 x)
        <br>
+- typeorm 사용법:
+    1. <a href="https://typeorm.io/#/select-query-builder">QueryBuilder를 사용하여 쿼리작성</a>
 
 <hr>
 <br>
