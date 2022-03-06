@@ -1,8 +1,9 @@
 const colors = {
   theme: '#4d66f3',
-  lightTheme:'#4d66f333',
+  lightTheme: '#4d66f333',
   lightTheme2: '#e7e7e8',
   gray: '#f7f8fa',
+  gray2: '#e9e8e6',
   darkGray: '#9A9A9A',
   white: '#ffffff',
   black: '#2b2e4a',
@@ -26,4 +27,4 @@ const screen = {
   mobile: '@media (max-width: 768px)',
 };
 
-export { colors, fontSizes, fontWeights, screen };
+export {colors, fontSizes, fontWeights, screen};

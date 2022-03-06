@@ -1,5 +1,6 @@
 import {useLogin} from "./useLogin";
+import {useHeader} from "./useHeader";
 
 export {
-  useLogin
+  useLogin, useHeader
 }

@@ -31,6 +31,12 @@
 
 1. <a href="https://github.com/victorkvarghese/react-native-query-boilerplate">로컬스토리지와 함께 관리하는 코드 참고</a>
 
+`개발 이슈`
+
+1. <p style="color: #4d66f333">2022.03.07</p>header는 기본적으로 history.back()을 일부 페이지에서는 다르게 동작하고 싶다.
+    - useHeader라는 hooks로 headerBackEvent라는 객체(콜백함수)를 관리할 것
+    - 단, 페이지를 나갈 때 리셋을 시켜야 하는 점에서 관리가 다소 까다로움
+
 ### 서버 상태관리: React-query
 
 `사용 이유`
