@@ -11,10 +11,10 @@ export class GiftsController {
     return this.giftsService.getGift(giftId);
   }
 
-  @Post('/:id/:option')
-  async createResult(@Param('id') optionData: string) {
-    return this.giftsService.createResult(optionData);
-  }
+  // @Post('/:id')
+  // async createResult(@Param('id') id: string, @Body() body) {
+  //   return this.giftsService.createResult(id, body);
+  // }
 
   @Post()
   async createGifts(@Body() giftData: GiftRequestDto) {

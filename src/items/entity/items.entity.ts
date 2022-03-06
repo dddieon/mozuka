@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Results } from '../../results/entity/results.entity';
 
 @Entity()
 export class Items {
@@ -13,4 +14,7 @@ export class Items {
 
   @Column()
   price: number;
+
+  @OneToMany(() => Results, (result) => result.id, { nullable: true })
+  results: Results[];
 }
