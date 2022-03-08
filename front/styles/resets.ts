@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import {css} from '@emotion/react';
 
 const reset = css`
   html,
@@ -136,6 +136,7 @@ const reset = css`
   }
 
   input {
+    font-family: inherit;
     outline: none;
   }
 
@@ -144,7 +145,7 @@ const reset = css`
   button,
   select,
   a {
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 `;
 

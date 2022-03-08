@@ -6,6 +6,8 @@ import {Button, H2, P} from "../../components/commons";
 import {colors, fontSizes, fontWeights} from "../../styles/variables";
 import Image from "next/image";
 import {useRouter} from "next/router";
+import {useMutation, UseMutationResult} from "react-query";
+import axios from "axios";
 
 const pageStyle = css`
   display: block !important;
@@ -17,13 +19,15 @@ const pageStyle = css`
     justify-content: space-between;
 
     > div {
-      max-width: 15rem;
+      max-width: 20rem;
       overflow: hidden;
     }
   }
 
   input {
+    border-radius: 0.4rem;
     max-width: 100%;
+    padding: 0.2rem;
     margin-top: 2rem;
     margin-bottom: 4rem;
     font-size: ${fontSizes.big};
@@ -38,15 +42,26 @@ const pageStyle = css`
 
 
 const GiftStart = () => {
+  const mutation: UseMutationResult = useMutation(option => axios.post(`/api/gifts`, option), {
+    onError: (error, variables, context) => {
+      // An error happened!
+      alert(error);
+    },
+    onSuccess: (data, variables, context) => {
+      // Boom baby!
+      router.push(`check/`);
+    },
+  });
+
   const setHeader = useHeader(state => state.setHeader);
   const setHeaderBackEvent = useHeader(state => state.setHeaderBackEvent);
   const [form, setForm] = useState({
-    giverName: "",
     getterName: "",
-    maxBudget: 99999999999999,
-    minimumBudget: 0,
+    giverName: "",
+    maxBudget: "",
+    minimumBudget: "",
     password: "",
-    retryCount: 0
+    retryCount: "1"
   });
   const [step, setStep] = useState(1);
   const [isInputFocus, setIsInputFocus] = useState(false);
@@ -78,13 +93,30 @@ const GiftStart = () => {
     }
   }, [step])
 
-  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>, type: null | undefined | string) => {
     switch (step) {
       case 1:
-        setForm({...form, giverName: e.target.value});
+        setForm({...form, getterName: e.target.value});
         break;
       case 2:
-        setForm({...form, getterName: e.target.value});
+        setForm({...form, giverName: e.target.value});
+        break;
+      case 3:
+        type === "max" ?
+          setForm({
+            ...form, maxBudget: e.target.value.replace(/[^0-9.]/g, '')
+          })
+          :
+          setForm({
+            ...form,
+            minimumBudget: e.target.value.replace(/[^0-9.]/g, '')
+          })
+        break;
+      case 4:
+        setForm({...form, retryCount: e.target.value.replace(/[^0-9.]/g, '')});
+        break;
+      case 5:
+        setForm({...form, password: e.target.value.replace(/[^0-9.]/g, '')});
         break;
       default:
     }
@@ -96,26 +128,29 @@ const GiftStart = () => {
       case 1:
       case 2:
       case 3:
+      case 4:
         setStep(prev => prev + 1);
         break;
-      case 4:
+      case 5:
         break;
     }
   }
 
   switch (step) {
     case 1:
+    case 2:
       return (
         <Layout>
           <div css={pageStyle}>
             <div className="start-wrap">
               <div>
-                <H2>주는 사람</H2>
+                <H2>{step === 1 ? "받는" : "주는"} 사람</H2>
                 <P color={"darkGray"}>이름을 입력해주세요.</P>
                 <input type={"text"}
-                       max={6}
+                       value={step === 1 ? form.getterName : form.giverName}
+                       maxLength={6}
                        onChange={e => {
-                         inputHandler(e);
+                         inputHandler(e, null);
                        }}
                        onFocus={() => setIsInputFocus(true)}
                        onBlur={() => {
@@ -137,24 +172,101 @@ const GiftStart = () => {
           </div>
         </Layout>
       );
-    case 2:
+    case 3:
       return (
         <Layout>
           <div css={pageStyle}>
-            <H2>받는 사람</H2>
-            <P color={"darkGray"}>이름을 입력해주세요.</P>
-            <input type={"text "}
-                   onChange={e => setForm({...form, giverName: e.target.value})}
-                   max={8}
-                   onFocus={() => setIsInputFocus(true)}
-                   onBlur={() => {
-                     const interval = setInterval(() => {
-                       setIsInputFocus(false);
-                       clearInterval(interval);
-                     }, 100);
-                   }}
-                   placeholder={"이름 입력"}/>
+            <div>
+              <div>
+                <H2>한도 금액</H2>
+                <P color={"darkGray"}>최소</P>
+                <input type={"tel"}
+                       value={form.minimumBudget}
+                       maxLength={9}
+                       onChange={e => {
+                         inputHandler(e, null);
+                       }}
+                       onFocus={() => setIsInputFocus(true)}
+                       onBlur={() => {
+                         const interval = setInterval(() => {
+                           setIsInputFocus(false);
+                           clearInterval(interval);
+                         }, 100);
+                       }}
+                       placeholder={"최소 금액 설정"}/>
+                <P color={"darkGray"}>최대</P>
+                <input type={"tel"}
+                       maxLength={9}
+                       onChange={e => {
+                         inputHandler(e, "max");
+                       }}
+                       onFocus={() => setIsInputFocus(true)}
+                       onBlur={() => {
+                         const interval = setInterval(() => {
+                           setIsInputFocus(false);
+                           clearInterval(interval);
+                         }, 100);
+                       }}
+                       placeholder={"최소 금액 설정"}/>
+              </div>
+            </div>
             <Button isFixed={isInputFocus} onClick={submit} bg={'theme'}>다음으로</Button>
+          </div>
+        </Layout>
+      );
+    case 4:
+      return (
+        <Layout>
+          <div css={pageStyle}>
+            <div>
+              <div>
+                <H2>재도전 기회</H2>
+                <P color={"darkGray"}>도전 가능 횟수</P>
+                <input type={"tel"}
+                       value={form.retryCount}
+                       maxLength={9}
+                       onChange={e => {
+                         inputHandler(e, null);
+                       }}
+                       onFocus={() => setIsInputFocus(true)}
+                       onBlur={() => {
+                         const interval = setInterval(() => {
+                           setIsInputFocus(false);
+                           clearInterval(interval);
+                         }, 100);
+                       }}
+                       placeholder={"기본 1회"}/>
+              </div>
+            </div>
+            <Button isFixed={isInputFocus} onClick={submit} bg={'theme'}>다음으로</Button>
+          </div>
+        </Layout>
+      );
+    case 5:
+      return (
+        <Layout>
+          <div css={pageStyle}>
+            <div>
+              <div>
+                <H2>패스워드</H2>
+                <P color={"darkGray"}>사용할 암호를 입력해주세요</P>
+                <input type={"tel"}
+                       value={form.password}
+                       maxLength={4}
+                       onChange={e => {
+                         inputHandler(e, null);
+                       }}
+                       onFocus={() => setIsInputFocus(true)}
+                       onBlur={() => {
+                         const interval = setInterval(() => {
+                           setIsInputFocus(false);
+                           clearInterval(interval);
+                         }, 100);
+                       }}
+                       placeholder={"4자리 입력"}/>
+              </div>
+            </div>
+            <Button isFixed={isInputFocus} onClick={submit} bg={'theme'}>발급하기</Button>
           </div>
         </Layout>
       );
