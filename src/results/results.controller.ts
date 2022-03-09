@@ -6,14 +6,7 @@ export class ResultsController {
   constructor(private resultService: ResultsService) {}
 
   @Post()
-  async createData(@Body() body) {
-    await this.resultService.createResult(body);
-    return;
+  async createResult(@Body() body) {
+    return await this.resultService.createResult(body);
   }
-
-  // @Post()
-  // async createResult(@Body() body) {
-  //   await this.resultService.createResult(body);
-  //   return;
-  // }
 }

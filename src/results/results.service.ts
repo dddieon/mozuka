@@ -29,21 +29,7 @@ export class ResultsService {
         HttpStatus.FORBIDDEN,
       );
     }
-    // 2. itemsRepository에서 랜덤으로 1개 가져와서
-    const randomItem = await this.itemsRepository
-      .createQueryBuilder('Items')
-      .where('Items.price > :minBudget', { minBudget: gift.minimumBudget })
-      .andWhere('Items.price < :maxBudget', { maxBudget: gift.maxBudget })
-      .orderBy('RAND()')
-      .limit(1)
-      .getOne();
-    if (!randomItem) {
-      throw new HttpException(
-        '현재 뽑을 수 있는 선물이 없어요',
-        HttpStatus.NOT_FOUND,
-      );
-    }
-    // 3. 재도전 횟수 1회차감 + 결과 저장
+    // 2. 재도전 횟수 1회차감
     await this.giftsRepository.update(
       {
         id: body.id,
@@ -53,9 +39,44 @@ export class ResultsService {
         retryCount: gift.retryCount - 1,
       },
     );
-    await this.resultsRepository.save({
-      giftId: body.id,
-      itemUuid: randomItem.uuid,
-    });
+    switch (body.option) {
+      case 'gifticon':
+        // 3-1. itemsRepository에서 랜덤으로 1개
+        const randomItem = await this.itemsRepository
+          .createQueryBuilder('Items')
+          .where('Items.price > :minBudget', { minBudget: gift.minimumBudget })
+          .andWhere('Items.price < :maxBudget', { maxBudget: gift.maxBudget })
+          .orderBy('RAND()')
+          .limit(1)
+          .getOne();
+        if (!randomItem) {
+          throw new HttpException(
+            '현재 뽑을 수 있는 선물이 없어요',
+            HttpStatus.NOT_FOUND,
+          );
+        }
+        return await this.resultsRepository.save({
+          giftId: body.id,
+          option: body.option,
+          price: randomItem.price,
+          itemUuid: randomItem.uuid,
+        });
+      case 'cash':
+        // 3-2. 최소 예산 ~ 최대 예산 랜덤으로 n원
+        const difference = gift.maxBudget - gift.minimumBudget;
+        const randomCash =
+          Math.floor(Math.random() * difference) + gift.minimumBudget + 1;
+        return await this.resultsRepository.save({
+          giftId: body.id,
+          option: body.option,
+          price: randomCash,
+        });
+      case 'voucher':
+        throw new HttpException(
+          '현재 뽑을 수 있는 상품권이 없어요',
+          HttpStatus.NOT_FOUND,
+        );
+      default:
+    }
   }
 }
