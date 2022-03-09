@@ -26,26 +26,27 @@ export class GiftsService {
 
     const results = await this.resultsRepository
       .createQueryBuilder('Results')
-      .leftJoinAndSelect('Results.giftId', 'giftId')
-      .leftJoinAndSelect('Results.itemUuid', 'itemUuid')
+      // .leftJoinAndSelect('Results.giftId', 'gift')
+      .leftJoinAndSelect('Results.itemUuid', 'item')
       .where('Results.giftId = :id', { id })
       .getMany();
 
-    const resultItemIds = results.map((result) => {
-      return result['itemUuid']['uuid'];
-    });
-
-    const result = await this.itemsRepository
-      .createQueryBuilder('Items')
-      .where('Items.uuid IN (:...ids)', {
-        ids: resultItemIds,
-      })
-      .getMany();
-
+    // const resultItemIds = results.map((result) => {
+    //   if (result['option'] === 'gifticon') return result['itemUuid']['uuid'];
+    // });
+    //
+    // if (resultItemIds.length) {
+    //   resultItems = await this.itemsRepository
+    //     .createQueryBuilder('Items')
+    //     .where('Items.uuid IN (:...ids)', {
+    //       ids: resultItemIds,
+    //     })
+    //     .getMany();
+    // }
     if (!gift) {
       throw new NotFoundException(`gift id ${id} not found`);
     }
-    return { ...gift, result };
+    return { ...gift, results };
   }
 
   async createGifts(giftData: GiftRequestDto) {
