@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
+import axios from "axios";
+import {useRouter} from "next/router";
+import {useMutation, UseMutationResult} from "react-query";
 import {css} from '@emotion/react';
+import Image from "next/image";
 import {useHeader} from "../../store";
 import Layout from '../../components/layouts/Layout';
 import {Button, H2, P} from "../../components/commons";
 import {colors, fontSizes, fontWeights} from "../../styles/variables";
-import Image from "next/image";
-import {useRouter} from "next/router";
-import {useMutation, UseMutationResult} from "react-query";
-import axios from "axios";
 
 const pageStyle = css`
   display: block !important;
@@ -42,17 +42,6 @@ const pageStyle = css`
 
 
 const GiftStart = () => {
-  const mutation: UseMutationResult = useMutation(option => axios.post(`/api/gifts`, option), {
-    onError: (error, variables, context) => {
-      // An error happened!
-      alert(error);
-    },
-    onSuccess: (data, variables, context) => {
-      // Boom baby!
-      router.push(`check/`);
-    },
-  });
-
   const setHeader = useHeader(state => state.setHeader);
   const setHeaderBackEvent = useHeader(state => state.setHeaderBackEvent);
   const [form, setForm] = useState({
@@ -66,6 +55,15 @@ const GiftStart = () => {
   const [step, setStep] = useState(1);
   const [isInputFocus, setIsInputFocus] = useState(false);
   const router = useRouter();
+
+  const mutation: UseMutationResult = useMutation((option): Promise<{ data: { id: string } }> => axios.post(`/api/gifts`, option), {
+    onError: (error) => {
+      alert(error);
+    },
+    onSuccess: (data) => {
+      router.push({pathname: `/check/${(data.data.id)}`});
+    },
+  });
 
 
   useEffect(() => {
@@ -132,6 +130,7 @@ const GiftStart = () => {
         setStep(prev => prev + 1);
         break;
       case 5:
+        mutation.mutate(form)
         break;
     }
   }

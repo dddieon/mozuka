@@ -3,7 +3,6 @@ import { GiftRequestDto } from './dto/gift.request.dto';
 import { Gifts } from './entity/gifts.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { v4 as uuidV4 } from 'uuid';
 import { Results } from '../results/entity/results.entity';
 import { Items } from '../items/entity/items.entity';
 
@@ -50,8 +49,6 @@ export class GiftsService {
   }
 
   async createGifts(giftData: GiftRequestDto) {
-    const uuid = uuidV4();
-    console.log(`${uuid} is creating...`);
     const newGift = {
       giverName: giftData.giverName,
       getterName: giftData.getterName,
@@ -61,7 +58,8 @@ export class GiftsService {
       retryCount: Number(giftData.retryCount),
       password: giftData.password,
     };
-    await this.giftsRepository.save(newGift);
-    return newGift;
+    const gift = await this.giftsRepository.save(newGift);
+    delete gift.password;
+    return gift;
   }
 }
