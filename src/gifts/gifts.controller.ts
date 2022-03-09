@@ -18,7 +18,6 @@ export class GiftsController {
 
   @Post()
   async createGifts(@Body() giftData: GiftRequestDto) {
-    await this.giftsService.createGifts(giftData);
-    return;
+    return await this.giftsService.createGifts(giftData);
   }
 }
