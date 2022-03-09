@@ -43,7 +43,6 @@
 
    외부 도메인 이미지를 사용할 때 에러가 난다
     - <a href="https://github.com/vercel/next.js/discussions/20953">hostname을 `next.config.js`에 추가</a>
-    - 추가 이후에도 에러가 났다.
 
 ### 서버 상태관리: React-query
 
@@ -91,7 +90,9 @@
     3. `yarn typeorm schema:sync` 로 entity와 database간의 씽크를 수동으로 맞춘다 (설정으로 하기: 권장 x)
        <br>
 - typeorm 사용법:
-    1. <a href="https://typeorm.io/#/select-query-builder">QueryBuilder를 사용하여 쿼리작성</a>
+    1. <a href="https://typeorm.io/#/select-query-builder">QueryBuilder</a>: 쿼리작성이 편함
+    2. <a href="https://mouuaw.tistory.com/19">leftJoinAndMapOne</a>: left join하면서 필드네임 변경 가능하다.
+        - `leftJoinAndMapOne('Results.item', 'Results.itemUuid', 'item')`으로 작성한 덕분에, itemUuid이 아닌 item으로 키값을 가져왔다.
 
 <hr>
 <br>

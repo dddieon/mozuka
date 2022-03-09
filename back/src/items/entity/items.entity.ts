@@ -7,6 +7,9 @@ export class Items {
   uuid: string;
 
   @Column()
+  url: string;
+
+  @Column()
   imageUrl: string;
 
   @Column()
