@@ -14,14 +14,22 @@ export interface IGift {
 export interface IData {
   id: string;
   isLogin: boolean;
-  data: IGift | null;
+  data: IGift;
   setLogin: (id: Omit<IData, "setLogin">) => void;
 }
 
 const loginGiftSlice: StateCreator<IData> = set => ({
   id: "",
   isLogin: true,
-  data: null,
+  data: {
+    id: "",
+    getterName: "",
+    giverName: "",
+    maxBudget: 0,
+    minimumBudget: 0,
+    password: "",
+    retryCount: 1
+  },
   setLogin: ({id, data, isLogin}): void => {
     set((state) => ({
       id: id,

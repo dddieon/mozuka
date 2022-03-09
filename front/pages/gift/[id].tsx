@@ -44,17 +44,20 @@ const giftPageStyle = css`
 
 const Gift = () => {
   const [value, setValue] = useState("");
-  const data: IGift | null = useLogin.getState().data;
+  const {id: giftId, retryCount}: IGift = useLogin.getState().data;
   const router = useRouter();
 
-  const mutation: UseMutationResult = useMutation(option => axios.post(`/api/gifts/${router.query.id}/${value}`, option), {
+  const mutation: UseMutationResult = useMutation((option): Promise<{ data: { id: number } }> => axios.post(`/api/results`, option), {
     onError: (error, variables, context) => {
       // An error happened!
       alert(error);
     },
     onSuccess: (data, variables, context) => {
       // Boom baby!
-      router.push(`${router.asPath}/${value}`);
+      router.push({
+        pathname: `/result/${data.data.id}`,
+        query: {giftId}
+      });
     },
   });
 
@@ -62,7 +65,7 @@ const Gift = () => {
     e.preventDefault();
     mutation.mutate({
       id: router.query.id,
-      value
+      option: value
     });
   }
 
@@ -71,7 +74,7 @@ const Gift = () => {
       <div css={giftPageStyle}>
         <div className="gift-desc">
           <H2>원하시는 선물 종류를 선택하세요.</H2>
-          <P>남은 재도전 횟수: {String(data?.retryCount)}</P>
+          <P>남은 재도전 횟수: {String(retryCount)}</P>
         </div>
         <div className="gift-select-wrap">
           <select value={value} onChange={(e) => setValue(e.target.value)}>

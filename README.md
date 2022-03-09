@@ -33,9 +33,17 @@
 
 `개발 이슈`
 
-1. <p style="color: #4d66f333">2022.03.07</p>header는 기본적으로 history.back()을 일부 페이지에서는 다르게 동작하고 싶다.
+1. <p style="color: #4d66f333">2022.03.07</p>
+
+   header의 뒤로가기 동작 `기본: history.back()`을 일부 페이지에서는 다르게 동작하고 싶었다.
+
     - useHeader라는 hooks로 headerBackEvent라는 객체(콜백함수)를 관리할 것
     - 단, 페이지를 나갈 때 리셋을 시켜야 하는 점에서 관리가 다소 까다로움
+2. <p style="color: #4d66f333">2022.03.07</p>
+
+   외부 도메인 이미지를 사용할 때 에러가 난다
+    - <a href="https://github.com/vercel/next.js/discussions/20953">hostname을 `next.config.js`에 추가</a>
+    - 추가 이후에도 에러가 났다.
 
 ### 서버 상태관리: React-query
 

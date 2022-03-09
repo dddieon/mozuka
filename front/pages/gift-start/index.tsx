@@ -61,7 +61,7 @@ const GiftStart = () => {
       alert(error);
     },
     onSuccess: (data) => {
-      router.push({pathname: `/check/${(data.data.id)}`});
+      router.push({pathname: `/gift-link/${(data.data.id)}`});
     },
   });
 
