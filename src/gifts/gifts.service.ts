@@ -27,7 +27,7 @@ export class GiftsService {
     const results = await this.resultsRepository
       .createQueryBuilder('Results')
       // .leftJoinAndSelect('Results.giftId', 'gift')
-      .leftJoinAndSelect('Results.itemUuid', 'item')
+      .leftJoinAndMapOne('Results.item', 'Results.itemUuid', 'item')
       .where('Results.giftId = :id', { id })
       .getMany();
 
