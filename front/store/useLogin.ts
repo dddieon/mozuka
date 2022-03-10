@@ -1,24 +1,15 @@
 import create, {GetState, SetState, StateCreator, StoreApi} from 'zustand';
 import {persist} from 'zustand/middleware';
+import {IGift} from "../types";
 
-export interface IGift {
-  giverName: string,
-  getterName: string,
-  id: string,
-  maxBudget: number,
-  minimumBudget: number,
-  password: string,
-  retryCount: number
-}
-
-export interface IData {
+export interface IStore {
   id: string;
   isLogin: boolean;
   data: IGift;
-  setLogin: (id: Omit<IData, "setLogin">) => void;
+  setLogin: (id: Omit<IStore, "setLogin">) => void;
 }
 
-const loginGiftSlice: StateCreator<IData> = set => ({
+const loginGiftSlice: StateCreator<IStore> = set => ({
   id: "",
   isLogin: true,
   data: {
@@ -28,7 +19,8 @@ const loginGiftSlice: StateCreator<IData> = set => ({
     maxBudget: 0,
     minimumBudget: 0,
     password: "",
-    retryCount: 1
+    retryCount: 1,
+    results: [],
   },
   setLogin: ({id, data, isLogin}): void => {
     set((state) => ({
@@ -39,15 +31,13 @@ const loginGiftSlice: StateCreator<IData> = set => ({
   },
 });
 
-type IStore = IData
-
 const useLogin = create<IStore>(
   persist(
     (set, get, api) => ({
       ...loginGiftSlice(
-        set as unknown as SetState<IData>,
-        get as GetState<IData>,
-        api as unknown as StoreApi<IData>,
+        set as unknown as SetState<IStore>,
+        get as GetState<IStore>,
+        api as unknown as StoreApi<IStore>,
       ),
     }),
     {
