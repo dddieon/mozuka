@@ -8,7 +8,7 @@ import Layout from '../../components/layouts/Layout';
 import {Button, H2, P} from '../../components/commons';
 import {colors, screen} from '../../styles/variables';
 import {useLogin} from "../../store";
-import {IGift} from "../../store/useLogin";
+import {IGift} from "../../types";
 
 const giftPageStyle = css`
   .gift-image {

@@ -4,10 +4,10 @@ import Layout from '../../components/layouts/Layout';
 import {Button, H2, P} from '../../components/commons';
 import {screen} from '../../styles/variables';
 import {useLogin} from "../../store";
-import {IGift} from "../../store/useLogin";
 import {useRouter} from "next/router";
 import {useMutation, UseMutationResult} from "react-query";
 import axios from "axios";
+import {IGift} from "../../types";
 
 const giftPageStyle = css`
   .gift-image {
@@ -46,7 +46,7 @@ const Gift = () => {
   const [value, setValue] = useState("");
   const {id: giftId, retryCount}: IGift = useLogin.getState().data;
   const router = useRouter();
-
+  
   const mutation: UseMutationResult = useMutation((option): Promise<{ data: { id: number } }> => axios.post(`/api/results`, option), {
     onError: (error, variables, context) => {
       // An error happened!

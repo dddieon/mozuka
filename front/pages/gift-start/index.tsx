@@ -40,7 +40,6 @@ const pageStyle = css`
   }
 `;
 
-
 const GiftStart = () => {
   const setHeader = useHeader(state => state.setHeader);
   const setHeaderBackEvent = useHeader(state => state.setHeaderBackEvent);
@@ -195,6 +194,7 @@ const GiftStart = () => {
                        placeholder={"최소 금액 설정"}/>
                 <P color={"darkGray"}>최대</P>
                 <input type={"tel"}
+                       value={form.maxBudget}
                        maxLength={9}
                        onChange={e => {
                          inputHandler(e, "max");
