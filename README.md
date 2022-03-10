@@ -43,6 +43,13 @@
 
    외부 도메인 이미지를 사용할 때 에러가 난다
     - <a href="https://github.com/vercel/next.js/discussions/20953">hostname을 `next.config.js`에 추가</a>
+3. <p style="color: #4d66f333">2022.03.11</p>
+
+    1. `getServerSideProps` 내부에서 리다이렉트가 필요한데, useRouter는 못쓴다. (로그인 체크)
+        - redirect: {destination: "/pathname"} 을 리턴해주면 해당 경로로 리다이렉트 된다.
+    2. `getServerSideProps` 내부에서 localstorage를 써서 자동로그인을 할 수 없을까? (/utils/index.ts의 checkLogin.ts 참고)
+        - <a href="https://github.com/vercel/next.js/discussions/17247">안된다!</a>... 빌드시 실행되는 부분이기 때문에 브라우저 정보(WEB API)를
+          가져올 수 없다. 대신 cookie를 사용하자.
 
 ### 서버 상태관리: React-query
 
