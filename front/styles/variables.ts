@@ -7,6 +7,7 @@ const colors = {
   darkGray: '#9A9A9A',
   white: '#ffffff',
   black: '#2b2e4a',
+  transparent: 'transparent'
 };
 
 const fontSizes = {

@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
-import React, { FunctionComponent } from 'react';
-import { colors, fontSizes, fontWeights } from '../../styles/variables';
+import React, {FunctionComponent} from 'react';
+import {colors, fontSizes, fontWeights} from '../../styles/variables';
 import styled from "@emotion/styled";
 
 interface OwnProps {
@@ -11,11 +11,12 @@ interface OwnProps {
   bd?: keyof typeof colors | null;
   weight?: keyof typeof fontWeights | null;
   isFixed?: boolean | null;
+  className?: string;
 }
 
 type Props = OwnProps;
 
-const fixedStyle = (value: OwnProps['isFixed']):object => {
+const fixedStyle = (value: OwnProps['isFixed']): object => {
   return value ? {
     position: 'fixed',
     borderRadius: 0,
@@ -34,10 +35,11 @@ const Div = styled.div`
 `
 
 const Link: FunctionComponent<Props> = (props) => {
-  const { href, style, bg, bd, size, weight, isFixed, children } = props;
+  const {className, href, style, bg, bd, size, weight, isFixed, children} = props;
 
   return (
     <Div
+      className={className ? className : ""}
       css={{
         borderRadius: '1rem',
         backgroundColor: bg ? colors[bg] : colors.gray,
