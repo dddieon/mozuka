@@ -113,7 +113,6 @@ const Result = ({data}: Props) => {
 
   useEffect(() => {
     setHeader("두근두근 선물 오픈!");
-    console.log(data, "D")
     return () => {
       setHeader("");
     }

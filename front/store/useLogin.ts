@@ -7,6 +7,7 @@ export interface IStore {
   isLogin: boolean;
   data: IGift;
   setLogin: (id: Omit<IStore, "setLogin">) => void;
+  updateCount: (number: number) => void;
 }
 
 const loginGiftSlice: StateCreator<IStore> = set => ({
@@ -29,6 +30,15 @@ const loginGiftSlice: StateCreator<IStore> = set => ({
       isLogin: !isLogin ? !state.isLogin : isLogin,
     }));
   },
+  updateCount: (number) => {
+    set((state) => ({
+      ...state,
+      data: {
+        ...state.data,
+        retryCount: number
+      }
+    }))
+  }
 });
 
 const useLogin = create<IStore>(
@@ -42,7 +52,7 @@ const useLogin = create<IStore>(
     }),
     {
       name: 'mozuka-gift',
-      getStorage: () => localStorage,
+      getStorage: () => sessionStorage,
     },
   ),
 );

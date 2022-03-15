@@ -45,15 +45,15 @@ const giftPageStyle = css`
 const Gift = () => {
   const [value, setValue] = useState("");
   const {id: giftId, retryCount}: IGift = useLogin.getState().data;
+  const {updateCount} = useLogin.getState();
   const router = useRouter();
-  
+
   const mutation: UseMutationResult = useMutation((option): Promise<{ data: { id: number } }> => axios.post(`/api/results`, option), {
-    onError: (error, variables, context) => {
-      // An error happened!
+    onError: (error) => {
       alert(error);
     },
-    onSuccess: (data, variables, context) => {
-      // Boom baby!
+    onSuccess: (data) => {
+      updateCount(retryCount - 1);
       router.push({
         pathname: `/result/${data.data.id}`,
         query: {giftId}
