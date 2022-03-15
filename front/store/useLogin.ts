@@ -6,7 +6,7 @@ export interface IStore {
   id: string;
   isLogin: boolean;
   data: IGift;
-  setLogin: (id: Omit<IStore, "setLogin">) => void;
+  setLogin: (id: Omit<IStore, "setLogin" | "updateCount">) => void;
   updateCount: (number: number) => void;
 }
 
