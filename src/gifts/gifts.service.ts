@@ -32,7 +32,7 @@ export class GiftsService {
       .getMany();
 
     // const resultItemIds = results.map((result) => {
-    //   if (result['option'] === 'gifticon') return result['itemUuid']['uuid'];
+    //   if (result['option'] === 'item') return result['itemUuid']['uuid'];
     // });
     //
     // if (resultItemIds.length) {
