@@ -8,7 +8,6 @@ export class ItemsController {
 
   @Post()
   async createItems(@Body() itemData: ItemRequestDto) {
-    await this.itemsService.createItems(itemData);
-    return;
+    return await this.itemsService.createItems(itemData);
   }
 }
