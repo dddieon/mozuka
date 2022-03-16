@@ -2,9 +2,9 @@ import { PickType } from '@nestjs/swagger';
 import { Gifts } from '../entity/gifts.entity';
 
 export enum options {
-  gifticon = 'gifticon',
-  present = 'present',
-  voucher = 'cash',
+  item = 'item',
+  voucher = 'voucher',
+  cash = 'cash',
 }
 
 export class GiftRequestDto extends PickType(Gifts, [

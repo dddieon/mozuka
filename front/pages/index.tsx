@@ -66,7 +66,7 @@ const Home: NextPage = () => {
         </div>
         <div className="main-desc">
           <Image
-            src="/images/present.svg"
+            src="/images/gift-box.svg"
             alt="선물 아이콘"
             width={50}
             height={50}
