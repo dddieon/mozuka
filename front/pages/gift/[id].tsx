@@ -43,13 +43,13 @@ const giftPageStyle = css`
 `;
 
 const Gift = () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("gifticon");
   const {id: giftId, retryCount}: IGift = useLogin.getState().data;
   const {updateCount} = useLogin.getState();
   const router = useRouter();
 
   const mutation: UseMutationResult = useMutation((option): Promise<{ data: { id: number } }> => axios.post(`/api/results`, option), {
-    onError: (error) => {
+    onError: (error, variables, context) => {
       alert(error);
     },
     onSuccess: (data) => {
@@ -63,6 +63,9 @@ const Gift = () => {
 
   const submit = async (e: React.MouseEvent) => {
     e.preventDefault();
+    if (!value) {
+      return "선물 종류를 선택하세요."
+    }
     mutation.mutate({
       id: router.query.id,
       option: value
@@ -79,8 +82,8 @@ const Gift = () => {
         <div className="gift-select-wrap">
           <select value={value} onChange={(e) => setValue(e.target.value)}>
             <option value={"gifticon"}>기프티콘</option>
-            <option value={"present"}>선물</option>
             <option value={"cash"}>현금</option>
+            <option value={"voucher"}>상품권</option>
           </select>
           {
             !mutation.isLoading ?

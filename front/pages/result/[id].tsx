@@ -167,12 +167,13 @@ const Result = ({data}: Props) => {
                         <P color={"gray2"} size={"big"} weight={"bold"}>다른 뽑기 기록이 없습니다</P>
                         :
                         data.results.map((r) => {
+                          const currentIsCash = r?.option === "cash";
                           if (Number(id) !== r.id) {
                             return (
                               <Link href={`/result/${r.id}?giftId=${router.query.giftId}`} key={r.id}>
                                 <div className={`result-image-wrap past`}>
-                                  <Image loader={() => isCash ? "/images/cash.svg" : r.item.imageUrl}
-                                         src={isCash ? "/images/cash.svg" : r.item.imageUrl}
+                                  <Image loader={() => currentIsCash ? "/images/cash.svg" : r.item.imageUrl}
+                                         src={currentIsCash ? "/images/cash.svg" : r.item.imageUrl}
                                          alt="선물 이미지"
                                          width={35}
                                          height={35}/>
@@ -180,7 +181,7 @@ const Result = ({data}: Props) => {
                                     <P color={"theme"} weight={"bold"}
                                        size={"small"}>￦{r.price.toLocaleString()}</P>
                                     <H2
-                                      size={"small"}>{isCash ? `현금 ${r.price.toLocaleString()}원` : r.item.name}</H2>
+                                      size={"small"}>{currentIsCash ? `현금 ${r.price.toLocaleString()}원` : r.item.name}</H2>
                                   </div>
                                 </div>
                               </Link>

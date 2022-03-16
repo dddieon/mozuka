@@ -80,6 +80,7 @@ const Gift = ({data}: Props) => {
     e.preventDefault();
 
     const setLogin = useLogin.getState().setLogin;
+    // todo login
     if (value.length === 3) {
       setLogin({
         // saved to localstorage
