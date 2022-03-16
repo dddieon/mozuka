@@ -19,9 +19,7 @@
     "jsx": "preserve",
     "jsxImportSource": "@emotion/react",
     "incremental": true,
-    "types": [
-      "@emotion/core"
-    ]
+    "types": ["@emotion/react/types/css-prop"]
   },
   "include": [
     "next-env.d.ts",
