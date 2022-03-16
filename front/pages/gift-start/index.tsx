@@ -151,12 +151,7 @@ const GiftStart = () => {
                          inputHandler(e, null);
                        }}
                        onFocus={() => setIsInputFocus(true)}
-                       onBlur={() => {
-                         const interval = setInterval(() => {
-                           setIsInputFocus(false);
-                           clearInterval(interval);
-                         }, 100);
-                       }}
+                       onBlur={() => setIsInputFocus(false)}
                        placeholder={"이름 입력"}/>
               </div>
               <Image
@@ -185,12 +180,7 @@ const GiftStart = () => {
                          inputHandler(e, null);
                        }}
                        onFocus={() => setIsInputFocus(true)}
-                       onBlur={() => {
-                         const interval = setInterval(() => {
-                           setIsInputFocus(false);
-                           clearInterval(interval);
-                         }, 100);
-                       }}
+                       onBlur={() => setIsInputFocus(false)}
                        placeholder={"최소 금액 설정"}/>
                 <P color={"darkGray"}>최대</P>
                 <input type={"tel"}
@@ -200,12 +190,7 @@ const GiftStart = () => {
                          inputHandler(e, "max");
                        }}
                        onFocus={() => setIsInputFocus(true)}
-                       onBlur={() => {
-                         const interval = setInterval(() => {
-                           setIsInputFocus(false);
-                           clearInterval(interval);
-                         }, 100);
-                       }}
+                       onBlur={() => setIsInputFocus(false)}
                        placeholder={"최소 금액 설정"}/>
               </div>
             </div>
@@ -228,12 +213,7 @@ const GiftStart = () => {
                          inputHandler(e, null);
                        }}
                        onFocus={() => setIsInputFocus(true)}
-                       onBlur={() => {
-                         const interval = setInterval(() => {
-                           setIsInputFocus(false);
-                           clearInterval(interval);
-                         }, 100);
-                       }}
+                       onBlur={() => setIsInputFocus(false)}
                        placeholder={"기본 1회"}/>
               </div>
             </div>
@@ -256,12 +236,7 @@ const GiftStart = () => {
                          inputHandler(e, null);
                        }}
                        onFocus={() => setIsInputFocus(true)}
-                       onBlur={() => {
-                         const interval = setInterval(() => {
-                           setIsInputFocus(false);
-                           clearInterval(interval);
-                         }, 100);
-                       }}
+                       onBlur={() => setIsInputFocus(false)}
                        placeholder={"4자리 입력"}/>
               </div>
             </div>

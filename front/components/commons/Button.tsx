@@ -30,6 +30,7 @@ const Button: FunctionComponent<Props> = (props) => {
     <button
       type="button"
       onClick={onClick}
+      onMouseDown={e => e.preventDefault()}
       css={{
         display: 'inline-block',
         width: '100%',

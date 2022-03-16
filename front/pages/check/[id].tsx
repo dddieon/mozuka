@@ -122,12 +122,7 @@ const Gift = ({data}: Props) => {
                        value={value}
                        onChange={(e) => setValue(e.target.value)} max={8}
                        onFocus={() => setIsInputFocus(true)}
-                       onBlur={() => {
-                         const interval = setInterval(() => {
-                           setIsInputFocus(false);
-                           clearInterval(interval);
-                         }, 100);
-                       }}
+                       onBlur={() => setIsInputFocus(false)}
                 />
                 <Button isFixed={isInputFocus} onClick={submit} bg={'theme'}>선물 받으러 가기</Button>
               </div>
