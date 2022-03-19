@@ -43,6 +43,7 @@ const giftPageStyle = css`
 
   .gift-radio-wrap {
     display: flex;
+    justify-content: center;
     gap: 1.6rem;
     width: 100%;
     margin-bottom: 7rem;
@@ -77,6 +78,7 @@ const giftPageStyle = css`
 
         > span {
           transform: scale(1.25) translate(0, 0.5rem) !important;
+          cursor: pointer;
         }
       }
     }
