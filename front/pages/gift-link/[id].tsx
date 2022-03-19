@@ -13,22 +13,6 @@ const pageStyle = css`
   h2 {
     margin-bottom: 2rem;
   }
-
-  button {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-
-    i {
-      display: inline-block;
-      width: 2.2rem;
-      height: 2rem;
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-image: url('/images/kakao.svg');
-    }
-  }
 `;
 
 interface Props {
@@ -72,7 +56,7 @@ const GiftLink = ({data}: Props) => {
         <H2>랜프티콘 생성 완료!</H2>
         <P color={"darkGray"}></P>
         <Box image={"/images/gift-box.svg"} text={"생성된 링크가 자동으로 복사되었습니다."}/>
-        <Button bg={"kakao"} onClick={shareKakao}><i/> 카카오톡으로 공유하기</Button>
+        <Button type={"kakao"} onClick={shareKakao}><i/>카카오톡으로 공유하기</Button>
       </div>
     </Layout>
   );

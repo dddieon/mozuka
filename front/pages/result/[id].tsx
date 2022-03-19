@@ -76,7 +76,7 @@ const pageStyle = css`
 
     > article:not(.no-data) {
       flex: 1;
-      padding: 1.2rem 0 2rem;
+      padding: 1.2rem 0 4rem;
 
       > div {
         cursor: pointer;
@@ -118,10 +118,32 @@ const Result = ({data}: Props) => {
     }
   }, [])
 
+  const sendKakao = () => {
+    const {Kakao} = window;
+    if (result) {
+      Kakao.Link.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: `랜프티콘 선물을 요청했어요!`,
+          description: `${data.getterName}님께서 ${data.giverName}님에게 ${isCash ? result.price + "원" : result.item.name}을 요청했어요`,
+          imageUrl: `${result.item ? result.item.imageUrl : '/images/cash-icon.png'}`,
+          link: isCash
+            ?
+            null :
+            {
+              mobileWebUrl: result.item.url,
+              webUrl: result.item.url,
+            },
+          buttonTitle: '구매 페이지로 이동'
+        },
+      })
+    }
+  }
+
   const returnButtons = () => {
     return (
       <div className={"result-buttons"}>
-        <Button>이 선물을 요청하기</Button>
+        <Button type={"kakao"} onClick={sendKakao}>현재 선물로 요청하기</Button>
         <Button bg={"theme"} onClick={() => router.push(`/gift/${router.query.giftId}`)}>재도전하기</Button>
       </div>
     )
@@ -133,7 +155,9 @@ const Result = ({data}: Props) => {
         {
           result ?
             <>
-              <div className={`result-image-wrap ${isCash ? "cash" : ""}`}>
+              <a href={result.item.url ? result.item.url : "#"}
+                 target={"_blank"} rel="noreferrer"
+                 className={`result-image-wrap ${isCash ? "cash" : ""}`}>
                 <Image
                   loader={() => isCash ? "/images/cash.svg" : result.item.imageUrl}
                   src={isCash ? "/images/cash.svg" : result.item.imageUrl}
@@ -146,7 +170,7 @@ const Result = ({data}: Props) => {
                   <H2>{isCash ? `현금 ${result.price.toLocaleString()}원` : result.item.name}</H2>
                   <P color={"darkGray"}>{isCash ? "머니머니해도 머니" : "클릭시 상세보기 링크로 이동"}</P>
                 </div>
-              </div>
+              </a>
               <div className={`result-line`}/>
               <div className={`result-desc`}>
                 {
