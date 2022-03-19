@@ -46,7 +46,7 @@ const GiftLink = () => {
   const shareKakao = () => {
     const {Kakao} = window;
     Kakao.Link.sendScrap({
-      requestUrl: '/check/3e8777d9-c48c-43d6-8d12-cf717763a9f9',
+      requestUrl: process.env.NEXT_PUBLIC_DOMAIN + '/check/3e8777d9-c48c-43d6-8d12-cf717763a9f9',
     })
   }
 
