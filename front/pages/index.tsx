@@ -2,8 +2,9 @@ import type {NextPage} from 'next';
 import Image from 'next/image';
 import {css} from '@emotion/react';
 import Layout from '../components/layouts/Layout';
-import {Link, P, Span} from '../components/commons';
+import {Link} from '../components/commons';
 import {colors, fontSizes, fontWeights, screen} from '../styles/variables';
+import {Box} from "../components/commons/Box";
 
 const mainStyle = css`
   > .main-image {
@@ -11,28 +12,6 @@ const mainStyle = css`
 
     ${screen.mobile} {
       width: 20rem;
-    }
-  }
-
-  > .main-desc {
-    border-radius: 2rem;
-    display: flex;
-    align-items: center;
-    padding: 2rem 3rem;
-    margin-bottom: 5.2rem;
-    width: 100%;
-    background-color: ${colors.gray};
-
-    > span {
-      min-width: 3.3rem;
-    }
-
-    > div {
-      margin-left: 3rem;
-
-      > p {
-        margin-bottom: 0.6rem;
-      }
     }
   }
 
@@ -64,26 +43,10 @@ const Home: NextPage = () => {
             height={500}
           />
         </div>
-        <div className="main-desc">
-          <Image
-            src="/images/gift-box.svg"
-            alt="선물 아이콘"
-            width={50}
-            height={50}
-          />
-          <div>
-            <P color={'darkGray'}>
-              시작하기를 누르면 새로운 랜프티콘을 생성할 수 있어요.
-            </P>
-            <button onClick={(e) => {
-              console.log(e)
-            }}>
-              <Span color={'theme'} weight={'bold'}>
-                [사용방법 알아보기]
-              </Span>
-            </button>
-          </div>
-        </div>
+        <Box image={"/images/gift-box.svg"}
+             text={"시작하기를 누르면 새로운 랜프티콘을 생성할 수 있어요."}
+             linkText={"[사용방법 알아보기]"}
+             href={"/"}/>
         <div className="main-button-wrap">
           <Link href={'/gift-start'} bg={'theme'}>시작하기</Link>
           {/*<Link href={'/gift'}>코드로 조회하기</Link>*/}

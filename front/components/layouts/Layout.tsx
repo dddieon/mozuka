@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect} from 'react';
+import React, {FunctionComponent} from 'react';
 import {css} from '@emotion/react';
 import Header from './Header';
 
@@ -16,16 +16,8 @@ const layoutStyle = css`
   }
 `;
 
-declare global {
-  interface Window {
-    Kakao: any;
-  }
-}
 
 const Layout: FunctionComponent = ({children}) => {
-  useEffect(() => {
-    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY)
-  }, []);
   return (
     <div css={layoutStyle}>
       <Header/>
