@@ -5,6 +5,9 @@ import Layout from '../../components/layouts/Layout';
 import {useHeader} from "../../store";
 import {Button, H2, P} from "../../components/commons";
 import {Box} from "../../components/commons/Box";
+import axios from "axios";
+import {IGift} from "../../types";
+import {ServerResponse} from "http";
 
 const pageStyle = css`
   h2 {
@@ -28,12 +31,16 @@ const pageStyle = css`
   }
 `;
 
-const GiftLink = () => {
+interface Props {
+  data: IGift
+}
+
+const GiftLink = ({data}: Props) => {
   const setHeader = useHeader(state => state.setHeader);
   const setHeaderBackEvent = useHeader(state => state.setHeaderBackEvent);
 
   const router = useRouter();
-  const {id} = router.query;
+  const giftId = router.asPath.split("/")[2];
 
   useEffect(() => {
     setHeader("링크가 생성되었어요");
@@ -45,8 +52,17 @@ const GiftLink = () => {
 
   const shareKakao = () => {
     const {Kakao} = window;
-    Kakao.Link.sendScrap({
-      requestUrl: process.env.NEXT_PUBLIC_DOMAIN + '/check/3e8777d9-c48c-43d6-8d12-cf717763a9f9',
+    Kakao.Link.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '랜프티콘이 도착했어요!',
+        description: `${data.giverName}님이 ${data.getterName}님에게 주는 선물입니다. 재도전 기회는 ${data.retryCount}차례입니다.`,
+        imageUrl: location.origin + '/images/thumb.png',
+        link: {
+          mobileWebUrl: location.origin + `/check/${giftId}`,
+          webUrl: location.origin + `/check/${giftId}`,
+        },
+      },
     })
   }
 
@@ -61,6 +77,37 @@ const GiftLink = () => {
     </Layout>
   );
 };
+
+type IContext = {
+  params: {
+    id: string
+  }
+  res: ServerResponse
+}
+
+export const getServerSideProps = async ({params, res}: IContext) => {
+  // const cookie = req ? req.headers.cookie : '';
+  // axios.defaults.headers.Cookie = '';
+  // if (req && cookie) {
+  //   axios.defaults.headers.Cookie = cookie;
+  // }
+  try {
+    const {id} = params;
+    const {data} = await axios.get(`/api/gifts/${id}`);
+    return {
+      props: {
+        data,
+      }
+    }
+  } catch {
+    res.statusCode = 404;
+    return {
+      props: {
+        data: null
+      }
+    };
+  }
+}
 
 
 export default GiftLink;
