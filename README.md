@@ -114,3 +114,10 @@
        (기존 로컬에서 사용했던 back 폴더는 지워야 클론이 가능하다)
     2. 업데이트: 부모의 origin/master의 변경사항을 child/master로 업데이트 하려면  <br />
        `git subtree push --prefix=back child master`를 실행
+
+`카카오 SDK`
+
+- <a href="https://yong-nyong.tistory.com/16">블로그 참고</a>
+    1. <a href="https://gaemi606.tistory.com/entry/TS-TypeScript%EC%97%90%EC%84%9C-Kakao-SDK-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-%EC%B9%B4%EC%B9%B4%EC%98%A4-%EB%A7%B5-React">
+       타입스크립트와 사용하기</a>: 검색을 하니 보통 any로 처리해주고 있다.
+    2. front 폴더에 .env로 API KEY를 첨부하는데, Next에서 제공하는 env 설정을 사용하려면 접두사로 `NEXT_PUBLIC_`을 쓰면 된다
