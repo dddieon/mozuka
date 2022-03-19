@@ -45,7 +45,7 @@ const mainStyle = css`
     padding: 0 5.8rem;
   }
 
-  > .main-how {
+  > .main-link {
     font-size: ${fontSizes.small};
     border-bottom: 1px solid ${colors.black};
     font-weight: ${fontWeights.bold}
@@ -73,9 +73,7 @@ const Home: NextPage = () => {
           />
           <div>
             <P color={'darkGray'}>
-              선물추첨 서비스입니다.
-              선물추첨 서비스입니다.
-              선물추첨 서비스입니다.
+              시작하기를 누르면 새로운 랜프티콘을 생성할 수 있어요.
             </P>
             <button onClick={(e) => {
               console.log(e)
@@ -90,7 +88,7 @@ const Home: NextPage = () => {
           <Link href={'/gift-start'} bg={'theme'}>시작하기</Link>
           {/*<Link href={'/gift'}>코드로 조회하기</Link>*/}
         </div>
-        <button className="main-how">HOW TO</button>
+        <a className="main-link" href={"https://github.com/dddieon/mozuka"} target="_blank" rel="noreferrer">GITHUB</a>
       </div>
     </Layout>
   );
