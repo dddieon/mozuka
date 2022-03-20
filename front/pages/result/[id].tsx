@@ -105,6 +105,7 @@ const Result = ({data}: Props) => {
   const setHeader = useHeader(state => state.setHeader);
 
   const router = useRouter();
+
   const {id} = router.query;
   const result: IResult | undefined = data.results.find((i: IResult) => {
     return i.id === Number(id)
@@ -127,15 +128,19 @@ const Result = ({data}: Props) => {
           title: `랜프티콘 선물을 요청했어요!`,
           description: `${data.getterName}님께서 ${data.giverName}님에게 ${isCash ? result.price + "원" : result.item.name}을 요청했어요`,
           imageUrl: `${result.item ? result.item.imageUrl : '/images/cash-icon.png'}`,
-          link: isCash
-            ?
-            null :
-            {
-              mobileWebUrl: result.item.url,
-              webUrl: result.item.url,
-            },
-          buttonTitle: '구매 페이지로 이동'
         },
+        buttons: [
+          {
+            title: isCash ? '송금하기는 아직 구현중...' : '선물하기 링크 이동',
+            link: isCash ? {
+              mobileWebUrl: location.origin + router.asPath,
+              webUrl: location.origin + router.asPath,
+            } : {
+              mobileWebUrl: result.item?.url,
+              webUrl: result.item?.url,
+            },
+          }
+        ]
       })
     }
   }
@@ -155,7 +160,7 @@ const Result = ({data}: Props) => {
         {
           result ?
             <>
-              <a href={result.item.url ? result.item.url : "#"}
+              <a href={result.item?.url ? result.item.url : "#"}
                  target={"_blank"} rel="noreferrer"
                  className={`result-image-wrap ${isCash ? "cash" : ""}`}>
                 <Image
