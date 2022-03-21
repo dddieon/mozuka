@@ -149,7 +149,7 @@ const Gift = () => {
           !mutation.isLoading ?
             <Button onClick={submit} bg={'theme'}>선물 받으러 가기</Button>
             :
-            <Button onClick={submit} bg={'gray'} bd={'gray'}>선물 요청중...</Button>
+            <Button onClick={(e) => e.preventDefault()} bg={'gray'} bd={'gray'}>선물 요청중...</Button>
         }
       </div>
     </Layout>

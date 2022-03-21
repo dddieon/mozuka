@@ -119,8 +119,7 @@ const GiftStart = () => {
     }
   }
 
-  const submit = async (e: React.MouseEvent) => {
-    e.preventDefault();
+  const submit = () => {
     switch (step) {
       case 1:
       case 2:
@@ -131,6 +130,13 @@ const GiftStart = () => {
       case 5:
         mutation.mutate(form)
         break;
+    }
+  }
+
+  const onKeyUp = (e: React.KeyboardEvent) => {
+    const key = e.key || e.keyCode;
+    if (key === "Enter" || key === 13) {
+      submit();
     }
   }
 
@@ -150,6 +156,7 @@ const GiftStart = () => {
                        onChange={e => {
                          inputHandler(e, null);
                        }}
+                       onKeyUp={onKeyUp}
                        onFocus={() => setIsInputFocus(true)}
                        onBlur={() => setIsInputFocus(false)}
                        placeholder={"이름 입력"}/>
@@ -179,6 +186,7 @@ const GiftStart = () => {
                        onChange={e => {
                          inputHandler(e, null);
                        }}
+                       onKeyUp={onKeyUp}
                        onFocus={() => setIsInputFocus(true)}
                        onBlur={() => setIsInputFocus(false)}
                        placeholder={"최소 금액 설정"}/>
@@ -189,6 +197,7 @@ const GiftStart = () => {
                        onChange={e => {
                          inputHandler(e, "max");
                        }}
+                       onKeyUp={onKeyUp}
                        onFocus={() => setIsInputFocus(true)}
                        onBlur={() => setIsInputFocus(false)}
                        placeholder={"최소 금액 설정"}/>
@@ -212,6 +221,7 @@ const GiftStart = () => {
                        onChange={e => {
                          inputHandler(e, null);
                        }}
+                       onKeyUp={onKeyUp}
                        onFocus={() => setIsInputFocus(true)}
                        onBlur={() => setIsInputFocus(false)}
                        placeholder={"기본 1회"}/>
@@ -235,12 +245,18 @@ const GiftStart = () => {
                        onChange={e => {
                          inputHandler(e, null);
                        }}
+                       onKeyUp={onKeyUp}
                        onFocus={() => setIsInputFocus(true)}
                        onBlur={() => setIsInputFocus(false)}
                        placeholder={"4자리 입력"}/>
               </div>
             </div>
-            <Button isFixed={isInputFocus} onClick={submit} bg={'theme'}>발급하기</Button>
+            {
+              !mutation.isLoading ?
+                <Button isFixed={isInputFocus} onClick={submit} bg={'theme'}>발급하기</Button>
+                :
+                <Button onClick={(e) => e.preventDefault()} bg={'gray'} bd={'gray'}>발급 요청중...</Button>
+            }
           </div>
         </Layout>
       );
