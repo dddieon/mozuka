@@ -123,12 +123,9 @@ const Result = ({data}: Props) => {
     const {Kakao} = window;
     if (result) {
       isCash ?
-        Kakao.Link.sendCustom({
-          templateId: 3135,
-          templateArgs: {
-            title: `${data.getterName}님께서 ${data.giverName}님에게 ${result.price}원을 요청했어요. 카톡 프로필 사진을 눌러 송금해주세요!`,
-            description: `랜프티콘 송금을 요청했어요!`,
-          }
+        Kakao.Link.sendDefault({
+          objectType: 'text',
+          text: `${data.getterName}님께서 ${data.giverName}님에게 ${result.price}원을 요청했어요. 카톡 프로필 사진을 눌러 송금해주세요!`,
         })
         :
         Kakao.Link.sendDefault({
