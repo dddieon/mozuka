@@ -107,7 +107,7 @@ const Result = ({data}: Props) => {
   const router = useRouter();
 
   const {id} = router.query;
-  const result: IResult | undefined = data.results.find((i: IResult) => {
+  const result: IResult | undefined = data?.results.find((i: IResult) => {
     return i.id === Number(id)
   })
   const isCash = result?.option === "cash";
@@ -122,26 +122,36 @@ const Result = ({data}: Props) => {
   const sendKakao = () => {
     const {Kakao} = window;
     if (result) {
-      Kakao.Link.sendDefault({
-        objectType: 'feed',
-        content: {
-          title: `랜프티콘 선물을 요청했어요!`,
-          description: `${data.getterName}님께서 ${data.giverName}님에게 ${isCash ? result.price + "원" : result.item.name}을 요청했어요`,
-          imageUrl: `${result.item ? result.item.imageUrl : '/images/cash-icon.png'}`,
-        },
-        buttons: [
-          {
-            title: isCash ? '송금하기는 아직 구현중...' : '선물하기 링크 이동',
-            link: isCash ? {
+      isCash ?
+        Kakao.Link.sendCustom({
+          templateId: 3135,
+          templateArgs: {
+            title: `${data.getterName}님께서 ${data.giverName}님에게 ${result.price}원을 요청했어요. 카톡 프로필 사진을 눌러 송금해주세요!`,
+            description: `랜프티콘 송금을 요청했어요!`,
+          }
+        })
+        :
+        Kakao.Link.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: `랜프티콘 선물을 요청했어요!`,
+            description: `${data.getterName}님께서 ${data.giverName}님에게 ${result.item.name}을 요청했어요`,
+            imageUrl: result.item.imageUrl,
+            link: {
               mobileWebUrl: location.origin + router.asPath,
               webUrl: location.origin + router.asPath,
-            } : {
-              mobileWebUrl: result.item?.url,
-              webUrl: result.item?.url,
             },
-          }
-        ]
-      })
+          },
+          buttons: [
+            {
+              title: '선물하기 링크 이동',
+              link: {
+                mobileWebUrl: result.item?.url,
+                webUrl: result.item?.url,
+              },
+            }
+          ]
+        })
     }
   }
 
