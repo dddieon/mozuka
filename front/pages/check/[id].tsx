@@ -9,6 +9,7 @@ import {Button, H2, P} from '../../components/commons';
 import {colors, screen} from '../../styles/variables';
 import {useLogin} from "../../store";
 import {IGift} from "../../types";
+import Head from "next/head";
 
 const giftPageStyle = css`
   .gift-image {
@@ -44,8 +45,8 @@ const giftPageStyle = css`
     > input {
       border: 1px solid ${colors.lightTheme};
       border-radius: 1rem;
-      padding: 2rem;
-      font-size: 4rem;
+      padding: 1.2rem 2rem;
+      font-size: 2.4rem;
       color: ${colors.lightTheme2};
 
       &.input-spacing {
@@ -96,6 +97,16 @@ const Gift = ({data}: Props) => {
 
   return (
     <Layout>
+      <Head>
+        <title>모주카 랜프티콘 도착</title>
+        <meta name={"description"}
+              content={data ? `${data.giverName}님께서 ${data.getterName}님께서 선물 추천 티켓을 보내왔습니다` : "랜프티콘 기간이 만료되었거나, 해당 링크가 존재하지 않습니다."}/>
+        <meta property="og:title" content="모주카 랜프티콘 도착"/>
+        <meta property="og:description"
+              content={data ? `${data.giverName}님께서 ${data.getterName}님께서 선물 추천 티켓을 보내왔습니다` : "랜프티콘 기간이 만료되었거나, 해당 링크가 존재하지 않습니다."}/>
+        <meta property="og:image"
+              content={process.env.NEXT_PUBLIC_DOMAIN + "/images/gift.svg"}/>
+      </Head>
       <div css={giftPageStyle}>
         {
           data ?

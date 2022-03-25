@@ -10,6 +10,7 @@ import {GetServerSideProps} from "next";
 import axios from "axios";
 import {IGift, IResult} from "../../types";
 import {colors} from "../../styles/variables";
+import Head from "next/head";
 
 const pageStyle = css`
   .result-image-wrap {
@@ -138,8 +139,8 @@ const Result = ({data}: Props) => {
             description: `${data.getterName}님께서 ${data.giverName}님에게 ${result.item.name}을 요청했어요`,
             imageUrl: result.item.imageUrl,
             link: {
-              mobileWebUrl: location.origin + router.asPath,
-              webUrl: location.origin + router.asPath,
+              mobileWebUrl: process.env.NEXT_PUBLIC_DOMAIN + router.asPath,
+              webUrl: process.env.NEXT_PUBLIC_DOMAIN + router.asPath,
             },
           },
           buttons: [
@@ -166,6 +167,16 @@ const Result = ({data}: Props) => {
 
   return (
     <Layout>
+      <Head>
+        <title>랜프티콘 결과가 도착했어요!</title>
+        <meta name={"description"}
+              content={result ? `${data.giverName}님께서 ${isCash ? `￦${result.price.toLocaleString()}` : result.item.name}을 뽑았습니다.` : "만료되거나 존재하지 않는 링크입니다."}/>
+        <meta property="og:title" content="랜프티콘 결과가 도착했어요!"/>
+        <meta property="og:description"
+              content={result ? `${data.giverName}님께서 ${isCash ? `￦${result.price.toLocaleString()}` : result.item.name}을 뽑았습니다.` : "만료되거나 존재하지 않는 링크입니다."}/>
+        <meta property="og:image"
+              content={isCash ? process.env.NEXT_PUBLIC_DOMAIN + "/images/cash.svg" : result?.item.imageUrl}/>
+      </Head>
       <div css={pageStyle}>
         {
           result ?
@@ -174,8 +185,8 @@ const Result = ({data}: Props) => {
                  target={"_blank"} rel="noreferrer"
                  className={`result-image-wrap ${isCash ? "cash" : ""}`}>
                 <Image
-                  loader={() => isCash ? "/images/cash.svg" : result.item.imageUrl}
-                  src={isCash ? "/images/cash.svg" : result.item.imageUrl}
+                  loader={() => isCash ? process.env.NEXT_PUBLIC_DOMAIN + "/images/cash.svg" : result.item.imageUrl}
+                  src={isCash ? process.env.NEXT_PUBLIC_DOMAIN + "/images/cash.svg" : result.item.imageUrl}
                   alt="선물 이미지"
                   width={83}
                   height={83}
