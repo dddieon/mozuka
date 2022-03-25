@@ -23,7 +23,8 @@ function MyApp({Component, pageProps}: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
-        <title>제목</title>
+        <title>모주카 : 랜프티콘 생성기</title>
+        <script defer src={"https://developers.kakao.com/sdk/js/kakao.min.js"}></script>
       </Head>
       <GlobalStyle/>
       <Component {...pageProps} />
