@@ -100,6 +100,9 @@
     1. <a href="https://typeorm.io/#/select-query-builder">QueryBuilder</a>: 쿼리작성이 편함
     2. <a href="https://mouuaw.tistory.com/19">leftJoinAndMapOne</a>: left join하면서 필드네임 변경 가능하다.
         - `leftJoinAndMapOne('Results.item', 'Results.itemUuid', 'item')`으로 작성한 덕분에, itemUuid이 아닌 item으로 키값을 가져왔다.
+- 비밀번호 인증 절차:
+    1. <a href="https://charming-kyu.tistory.com/39">작성 방법 참고</a>
+    2. 세션 기반 인증 vs 토큰 기반 인증: 로그인된 유저 정보를 서버 데이터베이스에 저장하는 세션 기반 인증 말고 `토큰 기반 인증`을 채택
 
 <hr>
 <br>
