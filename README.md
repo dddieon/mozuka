@@ -101,8 +101,11 @@
     2. <a href="https://mouuaw.tistory.com/19">leftJoinAndMapOne</a>: left join하면서 필드네임 변경 가능하다.
         - `leftJoinAndMapOne('Results.item', 'Results.itemUuid', 'item')`으로 작성한 덕분에, itemUuid이 아닌 item으로 키값을 가져왔다.
 - 비밀번호 인증 절차:
-    1. <a href="https://charming-kyu.tistory.com/39">작성 방법 참고</a>
-    2. 세션 기반 인증 vs 토큰 기반 인증: 로그인된 유저 정보를 서버 데이터베이스에 저장하는 세션 기반 인증 말고 `토큰 기반 인증`을 채택
+    1. 백엔드 작성 방법 참고
+        0. https://docs.nestjs.com/security/authentication (공식문서)
+        1. https://any-ting.tistory.com/119
+        2. https://velog.io/@anjoy/%EB%B8%94%EB%A1%9C%EA%B7%B8%EB%A7%8C%EB%93%A4%EA%B8%B09-NestJS-passport-jwt
+    3. 세션 기반 인증 vs 토큰 기반 인증: 로그인된 유저 정보를 서버 데이터베이스에 저장하는 세션 기반 인증 말고 `토큰 기반 인증`을 채택
 
 <hr>
 <br>
@@ -124,3 +127,14 @@
     1. <a href="https://gaemi606.tistory.com/entry/TS-TypeScript%EC%97%90%EC%84%9C-Kakao-SDK-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-%EC%B9%B4%EC%B9%B4%EC%98%A4-%EB%A7%B5-React">
        타입스크립트와 사용하기</a>: 검색을 하니 보통 any로 처리해주고 있다.
     2. front 폴더에 .env로 API KEY를 첨부하는데, Next에서 제공하는 env 설정을 사용하려면 접두사로 `NEXT_PUBLIC_`을 쓰면 된다
+
+## MEMOS
+
+- FRONT TODO
+    1. ripple css
+    2. form validation check
+    3. header back button remove (history.length check)
+    4. `https://qr.kakaopay.com/${userId}` 형식으로 결과 공유 링크 변경
+    5. 결과페이지 무한스크롤
+- BACK TODO
+    1. passport authentication
