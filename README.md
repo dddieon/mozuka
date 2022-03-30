@@ -103,8 +103,10 @@
 - 비밀번호 인증 절차:
     1. 백엔드 작성 방법 참고
         0. https://docs.nestjs.com/security/authentication (공식문서)
-        1. https://any-ting.tistory.com/119
-        2. https://velog.io/@anjoy/%EB%B8%94%EB%A1%9C%EA%B7%B8%EB%A7%8C%EB%93%A4%EA%B8%B09-NestJS-passport-jwt
+        1. <특이사항> 공식문서에서 구조를 다소 바꾸어 커스텀 하였음. (기존 파일구조를 해치지 않기 위해서 auth라는 폴더를 따로 생성하여 로그인관련 로직을 따로 관리하였음. 이를 위해
+           AuthModule 내부에 GiftsModule을 심는 것이 아닌, GiftsModule에 AuthModule 기능들`(PassportModule, LocalStrategy)`을 포함하고
+           AuthService를 불러옴)
+        2. <이슈> req.body는 무조건 `{username: string, passsword: string}` 형식으로 요청해야 401 에러가 안난다.
     3. 세션 기반 인증 vs 토큰 기반 인증: 로그인된 유저 정보를 서버 데이터베이스에 저장하는 세션 기반 인증 말고 `토큰 기반 인증`을 채택
 
 <hr>
