@@ -50,6 +50,11 @@
     2. `getServerSideProps` 내부에서 localstorage를 써서 자동로그인을 할 수 없을까? (/utils/index.ts의 checkLogin.ts 참고)
         - <a href="https://github.com/vercel/next.js/discussions/17247">안된다!</a>... 빌드시 실행되는 부분이기 때문에 브라우저 정보(WEB API)를
           가져올 수 없다. 대신 cookie를 사용하자.
+4. <p style="color: #4d66f333">2022.03.31</p>
+
+    1. `Access-Control-Allow-Origin = "*"` (cors: true 옵션)은 만능이 아니다.
+    2. 모든 CORS 요청을 허가하지는 않는다. <인증정보 요청>인 경우라면 CORS 옵션 설정을 통해 경로지정이 필요하다.
+    3. 프론트와 백에서 모두 `Access-Control-Allow-Origin` 설정을 각 패스를 따로 설정했고, 마찬가지로 `credential: true`도 양쪽에서 지정했다.
 
 ### 서버 상태관리: React-query
 
@@ -107,6 +112,8 @@
            AuthModule 내부에 GiftsModule을 심는 것이 아닌, GiftsModule에 AuthModule 기능들`(PassportModule, LocalStrategy)`을 포함하고
            AuthService를 불러옴)
         2. <이슈> req.body는 무조건 `{username: string, passsword: string}` 형식으로 요청해야 401 에러가 안난다.
+        3. <a href="https://velog.io/@jakeseo_me/%EB%B2%88%EC%97%AD-passport-local%EC%97%90-%EB%8C%80%ED%95%B4-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%A8%EB%93%A0-%EA%B2%83">
+           passport local strategy 방식에 대해서</a>
     3. 세션 기반 인증 vs 토큰 기반 인증: 로그인된 유저 정보를 서버 데이터베이스에 저장하는 세션 기반 인증 말고 `토큰 기반 인증`을 채택
 
 <hr>
