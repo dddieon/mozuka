@@ -2,9 +2,8 @@ import type {NextPage} from 'next';
 import Image from 'next/image';
 import {css} from '@emotion/react';
 import Layout from '../components/layouts/Layout';
-import {Link} from '../components/commons';
+import {Box, Link} from '../components/commons';
 import {colors, fontSizes, fontWeights, screen} from '../styles/variables';
-import {Box} from "../components/commons/Box";
 
 const mainStyle = css`
   > .main-image {
