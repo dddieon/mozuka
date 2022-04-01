@@ -7,8 +7,9 @@ import {useHeader} from "../../store";
 const navStyle = css`
   display: flex;
   align-items: center;
+  min-height: 6.4rem;
 
-  > button {
+  > button.header-back {
     margin: 1.2rem 1rem 1.6rem 1.2rem;
     width: 3.6rem;
     height: 3.6rem;
@@ -21,9 +22,11 @@ const navStyle = css`
 
 const Header: FunctionComponent = () => {
   const router = useRouter();
+  const path = router.asPath.split("/")[1];
   const header = useHeader(state => state.header);
   const headerBackEvent = useHeader(state => state.headerBackEvent);
   const setHeaderBackEvent = useHeader(state => state.setHeaderBackEvent);
+  const hideHeaderBack = (path === '' || path === 'check');
 
   useEffect(() => {
     setHeaderBackEvent(() => router.back())
@@ -32,7 +35,13 @@ const Header: FunctionComponent = () => {
   return (
     <header>
       <nav css={navStyle}>
-        <button onClick={headerBackEvent}/>
+        {
+          hideHeaderBack
+            ?
+            null
+            :
+            <button className={"header-back"} onClick={headerBackEvent}/>
+        }
         <P weight={"bold"}>{header}</P>
       </nav>
     </header>

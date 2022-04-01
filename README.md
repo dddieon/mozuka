@@ -135,7 +135,7 @@
 - FRONT TODO
     1. ripple css
     2. form validation check
-    3. header back button remove (history.length check)
+    3. ~~header back button remove (history.length check)~~
     4. `https://qr.kakaopay.com/${userId}` 형식으로 결과 공유 링크 변경
     5. 결과페이지 무한스크롤
 - BACK TODO
