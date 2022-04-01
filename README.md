@@ -42,27 +42,35 @@
 <br>
 
 💦 <b>개발이슈</b>
-   | ⏱ 2022.03.07 | header의 뒤로가기 동작 <b>기본: history.back()</b>을 일부 페이지에서는 다르게 동작하고 싶었다. |
-   | --- | --- |
-  
-   - useHeader라는 hooks로 headerBackEvent라는 객체(콜백함수)를 관리할 것
-   - 단, 페이지를 나갈 때 리셋을 시켜야 하는 점에서 관리가 다소 까다로움
-   
-   | ⏱ 2022.03.07 | 외부 도메인 이미지를 사용할 때 에러가 난다 |
-   | --- | --- |
 
-   - <a href="https://github.com/vercel/next.js/discussions/20953">hostname을 <b>next.config.js</b>에 추가</a>
+<table>
+    <tr>
+        <td>⏱ 2022.03.07</td><td>header의 뒤로가기 동작 <b>기본: history.back()</b>을 일부 페이지에서는 다르게 동작하고 싶었다.</td>
+    </tr>
+</table>
 
-   | ⏱ 2022.03.11 | 프론트에서 로그인 체크하기 |
-   | --- | --- |
-   
-   - <b>getServerSideProps</b> 내부에서 리다이렉트가 필요한데, useRouter는 못쓴다.
-      - `redirect: {destination: "/pathname"}` 을 리턴해주면 해당 경로로 리다이렉트 된다.
-   - <b>getServerSideProps</b> 내부에서 localstorage를 써서 자동로그인을 할 수 없을까? (/utils/index.ts의 checkLogin.ts 참고)
-      - <a href="https://github.com/vercel/next.js/discussions/17247">안된다!</a>... 빌드시 실행되는 부분이기 때문에 브라우저 정보(WEB API)를 가져올 수 없다.
-      대신 cookie를 사용하자.
-   
-</details>
+- useHeader라는 hooks로 headerBackEvent라는 객체(콜백함수)를 관리할 것
+- 단, 페이지를 나갈 때 리셋을 시켜야 하는 점에서 관리가 다소 까다로움
+
+<table>
+    <tr>
+        <td>⏱ 2022.03.07</td><td>외부 도메인 이미지를 사용할 때 에러가 난다</td>
+    </tr>
+</table>
+
+- <a href="https://github.com/vercel/next.js/discussions/20953">hostname을 <b>next.config.js</b>에 추가</a>
+
+<table>
+    <tr>
+        <td>⏱ 2022.03.11</td><td>프론트에서 로그인 체크하기</td>
+    </tr>
+</table>
+
+- <b>getServerSideProps</b> 내부에서 리다이렉트가 필요한데, useRouter는 못쓴다.
+    - `redirect: {destination: "/pathname"}` 을 리턴해주면 해당 경로로 리다이렉트 된다.
+- <b>getServerSideProps</b> 내부에서 localstorage를 써서 자동로그인을 할 수 없을까? (/utils/index.ts의 checkLogin.ts 참고)
+    - <a href="https://github.com/vercel/next.js/discussions/17247">안된다!</a>... 빌드시 실행되는 부분이기 때문에 브라우저 정보(WEB API)를 가져올
+      수 없다. 대신 cookie를 사용하자.
 
 <br>
 
@@ -128,10 +136,10 @@
 - 비밀번호 인증 절차:
     1. 백엔드 작성 방법 참고
         0. https://docs.nestjs.com/security/authentication (공식문서)
-        1. <특이사항> 공식문서에서 구조를 다소 바꾸어 커스텀 하였음. (기존 파일구조를 해치지 않기 위해서 auth라는 폴더를 따로 생성하여 로그인관련 로직을 따로 관리하였음. 이를 위해
+        1. <b>특이사항</b>: 공식문서에서 구조를 다소 바꾸어 커스텀 하였음. (기존 파일구조를 해치지 않기 위해서 auth라는 폴더를 따로 생성하여 로그인관련 로직을 따로 관리하였음. 이를 위해
            AuthModule 내부에 GiftsModule을 심는 것이 아닌, GiftsModule에 AuthModule 기능들`(PassportModule, LocalStrategy)`을 포함하고
            AuthService를 불러옴)
-        2. <이슈> req.body는 무조건 `{username: string, passsword: string}` 형식으로 요청해야 401 에러가 안난다.
+        2. <b>이슈</b>: req.body는 무조건 `{username: string, passsword: string}` 형식으로 요청해야 401 에러가 안난다.
         3. <a href="https://velog.io/@jakeseo_me/%EB%B2%88%EC%97%AD-passport-local%EC%97%90-%EB%8C%80%ED%95%B4-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%A8%EB%93%A0-%EA%B2%83">
            passport local strategy 방식에 대해서</a>
     3. 세션 기반 인증 vs 토큰 기반 인증: 로그인된 유저 정보를 서버 데이터베이스에 저장하는 세션 기반 인증 말고 `토큰 기반 인증`을 채택
@@ -140,12 +148,15 @@
 
 💦 <b>개발이슈</b>
 
-   | ⏱ 2022.03.31 |  기존에 API 요청/응답이 원활했으나, 인증을 할 때 생긴 CORS 에러 |
-   | --- | --- |
-   
-   - `Access-Control-Allow-Origin = "*"` (cors: true 옵션)은 만능이 아니다.
-   - 모든 CORS 요청을 허가하지는 않는다. <인증정보 요청>인 경우라면 CORS 옵션 설정을 통해 경로지정이 필요하다.
-   - 프론트와 백에서 모두 `Access-Control-Allow-Origin` 설정을 각 패스를 따로 설정했고, 마찬가지로 `credential: true`도 양쪽에서 지정했다.
+<table>
+    <tr>
+        <td>⏱ 2022.03.31</td><td>기존에 API 요청/응답이 원활했으나, 인증을 할 때 생긴 CORS 에러</td>
+    </tr>
+</table>
+
+- `Access-Control-Allow-Origin = "*"` (cors: true 옵션)은 만능이 아니다.
+- 모든 CORS 요청을 허가하지는 않는다. <b>인증정보 요청</b>인 경우라면 CORS 옵션 설정을 통해 경로지정이 필요하다.
+- 프론트와 백에서 모두 `Access-Control-Allow-Origin` 설정을 각 패스를 따로 설정했고, 마찬가지로 `credential: true`도 양쪽에서 지정했다.
 
 <br>
 
