@@ -25,12 +25,8 @@ export class AuthService {
     return null;
   }
 
-  async getCookieWithJwtToken(data: {
-    username: string;
-    password: string;
-    id: string;
-  }) {
-    const payload = { username: data.username, sub: data.id };
+  async getCookieWithJwtToken(data: { username: string; password: string }) {
+    const payload = { username: data.username };
     const token = this.jwtService.sign(payload);
     return `Authentication=${token}; HttpOnly; Path=/; Max-Age=3600`; // todo env to config
   }
