@@ -22,14 +22,16 @@ export class AuthService {
       const { password, ...result } = gift; // 객체에서 filter 거는 방법
       return result;
     }
-    //todo null로 변경
     return null;
   }
 
-  async login(data: { username: string; password: string }) {
-    const payload = { username: data.username }; // json web token 으로 변환할 데이터 정보
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+  async getCookieWithJwtToken(data: {
+    username: string;
+    password: string;
+    id: string;
+  }) {
+    const payload = { username: data.username, sub: data.id };
+    const token = this.jwtService.sign(payload);
+    return `Authentication=${token}; HttpOnly; Path=/; Max-Age=3600`; // todo env to config
   }
 }
