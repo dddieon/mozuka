@@ -10,6 +10,7 @@ import {colors, screen} from '../../styles/variables';
 import {useLogin} from "../../store";
 import {IGift} from "../../types";
 import Head from "next/head";
+import {useMutation, UseMutationResult} from "react-query";
 
 const giftPageStyle = css`
   .gift-image {
@@ -76,13 +77,16 @@ const Gift = ({data}: Props) => {
   const [isInputFocus, setIsInputFocus] = useState(false);
   const router = useRouter();
   const {id} = router.query;
+  const setLogin = useLogin.getState().setLogin;
 
-  const submit = async (e: React.MouseEvent) => {
-    e.preventDefault();
-
-    const setLogin = useLogin.getState().setLogin;
-    // todo login
-    if (value.length === 3) {
+  const mutation: UseMutationResult = useMutation((option): Promise<{ data: { id: string } }> => axios.post(`/api/gifts/auth/login`, option, {
+    withCredentials: true,
+  }), {
+    onError: (error, variables, context) => {
+      alert('올바르지 않은 패스워드입니다.');
+    },
+    onSuccess: (res) => {
+      console.log("RES", res);
       setLogin({
         // saved to localstorage
         id: String(id),
@@ -90,8 +94,21 @@ const Gift = ({data}: Props) => {
         isLogin: true,
       });
       router.push(`/gift/${id}`).then();
-    } else {
-      alert("잘못된 암호입니다!");
+    },
+  });
+
+  const submit = async (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    // todo login
+    try {
+      if (value.length) {
+        mutation.mutate({username: data.id, password: value})
+      } else {
+        alert("암호를 입력해주세요!");
+      }
+    } catch (e) {
+      alert("올바른 요청이 아닙니다.");
     }
   }
 
