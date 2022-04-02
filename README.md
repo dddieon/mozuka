@@ -148,8 +148,7 @@
         - 공식문서 대로 요청이 성공되면 ACCESS TOKEN을 응답 받지만, 쿠키 저장은 백엔드에서 지정하게 하고싶다. (<a href="https://charming-kyu.tistory.com/39">
           추가문서</a>)
 
-        1.
-       <br>
+        - setCookie에 성공하였으나, sameSite 이슈 발생: 개발이슈 part 참고
 
 💦 <b>개발이슈</b>
 
@@ -162,6 +161,16 @@
 - `Access-Control-Allow-Origin = "*"` (cors: true 옵션)은 만능이 아니다.
 - 모든 CORS 요청을 허가하지는 않는다. <b>인증정보 요청</b>인 경우라면 CORS 옵션 설정을 통해 경로지정이 필요하다.
 - 프론트와 백에서 모두 `Access-Control-Allow-Origin` 설정을 각 패스를 따로 설정했고, 마찬가지로 `credential: true`도 양쪽에서 지정했다.
+
+<table>
+    <tr>
+        <td>⏱ 2022.04.03</td><td>sameSite 이슈로 Set-Cookie 헤더를 인식하지 않는 브라우저</td>
+    </tr>
+</table>
+
+- <a href="https://velog.io/@jsj3282/%EA%B5%AC%EA%B8%80-Chrome-SameSite-%EC%9D%B4%EC%8A%88">참고</a>하여서 쿠키를 추가하였음 (
+  SameSite, Secure )
+- SameSite=None으로 설정할 경우 Secure 속성을 함께 추가
 
 <br>
 
