@@ -9,6 +9,8 @@ import {useMutation, UseMutationResult} from "react-query";
 import axios from "axios";
 import {IGift} from "../../types";
 import Image from "next/image";
+import {GetServerSideProps} from "next";
+import {getCookie} from "../../utils";
 
 
 const options = [{
@@ -155,5 +157,25 @@ const Gift = () => {
     </Layout>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async ({params, res, req}) => {
+  const token = getCookie(req.headers.cookie, "Authentication");
+  const id = params?.id;
+  if (!token) {
+    return {
+      redirect: {
+        destination: `/check/${id}`
+      },
+      props: {
+        data: null
+      }
+    }
+  }
+  return {
+    props: {
+      data: null
+    }
+  }
+}
 
 export default Gift;

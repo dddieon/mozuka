@@ -11,6 +11,7 @@ import {useLogin} from "../../store";
 import {IGift} from "../../types";
 import Head from "next/head";
 import {useMutation, UseMutationResult} from "react-query";
+import {getCookie} from "../../utils";
 
 const giftPageStyle = css`
   .gift-image {
@@ -69,7 +70,7 @@ const giftPageStyle = css`
 `;
 
 interface Props {
-  data: IGift
+  data: IGift,
 }
 
 const Gift = ({data}: Props) => {
@@ -164,27 +165,34 @@ const Gift = ({data}: Props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({params, res}) => {
-  // const cookie = req ? req.headers.cookie : '';
-  // axios.defaults.headers.Cookie = '';
-  // if (req && cookie) {
-  //   axios.defaults.headers.Cookie = cookie;
-  // }
-  try {
-    const id = params?.id;
-    const {data} = await axios.get(`/api/gifts/${id}`);
-    return {
-      props: {
-        data
+export const getServerSideProps: GetServerSideProps = async ({params, res, req}) => {
+  const token = getCookie(req.headers.cookie, "Authentication");
+  const id = params?.id;
+  if (!token) {
+    try {
+      const {data} = await axios.get(`/api/gifts/${id}`);
+      return {
+        props: {
+          data,
+        }
       }
+    } catch {
+      res.statusCode = 404;
+      return {
+        props: {
+          data: null,
+        }
+      };
     }
-  } catch {
-    res.statusCode = 404;
+  } else {
     return {
+      redirect: {
+        destination: `/gift/${id}`
+      },
       props: {
         data: null
       }
-    };
+    }
   }
 }
 
