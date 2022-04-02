@@ -135,16 +135,21 @@
         - `leftJoinAndMapOne('Results.item', 'Results.itemUuid', 'item')`으로 작성한 덕분에, itemUuid이 아닌 item으로 키값을 가져왔다.
 - 비밀번호 인증 절차:
     1. 백엔드 작성 방법 참고
-        0. https://docs.nestjs.com/security/authentication (공식문서)
+        - https://docs.nestjs.com/security/authentication (공식문서가
+          불편하면 <a href="https://makemethink.tistory.com/162?category=768132">한글 블로그</a>)
+
         1. <b>특이사항</b>: 공식문서에서 구조를 다소 바꾸어 커스텀 하였음. (기존 파일구조를 해치지 않기 위해서 auth라는 폴더를 따로 생성하여 로그인관련 로직을 따로 관리하였음. 이를 위해
            AuthModule 내부에 GiftsModule을 심는 것이 아닌, GiftsModule에 AuthModule 기능들`(PassportModule, LocalStrategy)`을 포함하고
            AuthService를 불러옴)
         2. <b>이슈</b>: req.body는 무조건 `{username: string, passsword: string}` 형식으로 요청해야 401 에러가 안난다.
         3. <a href="https://velog.io/@jakeseo_me/%EB%B2%88%EC%97%AD-passport-local%EC%97%90-%EB%8C%80%ED%95%B4-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%A8%EB%93%A0-%EA%B2%83">
            passport local strategy 방식에 대해서</a>
-    3. 세션 기반 인증 vs 토큰 기반 인증: 로그인된 유저 정보를 서버 데이터베이스에 저장하는 세션 기반 인증 말고 `토큰 기반 인증`을 채택
+    2. 공식문서에 없는 부분: 백엔드에서 토큰을 setCookie 하기
+        - 공식문서 대로 요청이 성공되면 ACCESS TOKEN을 응답 받지만, 쿠키 저장은 백엔드에서 지정하게 하고싶다. (<a href="https://charming-kyu.tistory.com/39">
+          추가문서</a>)
 
-<br>
+        1.
+       <br>
 
 💦 <b>개발이슈</b>
 
@@ -188,5 +193,7 @@
     3. ~~header back button remove (history.length check)~~
     4. `https://qr.kakaopay.com/${userId}` 형식으로 결과 공유 링크 변경
     5. 결과페이지 무한스크롤
+    6. '체험하기' 페이지 생성
 - BACK TODO
     1. passport authentication
+    2. 상품권 및 선물 링크 수집 서버
