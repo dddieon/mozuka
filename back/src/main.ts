@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.set('trust proxy', 1);
   app.enableCors({
-    origin: process.env.NEXT_PUBLIC_DOMAIN,
+    origin: ['http://localhost:3000', process.env.NEXT_PUBLIC_DOMAIN],
     credentials: true,
     preflightContinue: false,
     optionsSuccessStatus: 204,
