@@ -7,9 +7,9 @@ import {useEffect} from "react";
 
 const queryClient = new QueryClient();
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACK_URI || 'https://mozuka-back.herokuapp.com/';
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACK_URI || 'https://mozuka-back.herokuapp.com';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = process.env.NEXT_PUBLIC_BACK_URI || 'https://mozuka-back.herokuapp.com/';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = process.env.NEXT_PUBLIC_BACK_URI || 'https://mozuka-back.herokuapp.com';
 axios.defaults.headers.post['Access-Control-Allow-Credentials'] = 'true';
 axios.defaults.withCredentials = true;
 

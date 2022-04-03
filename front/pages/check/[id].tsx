@@ -166,6 +166,10 @@ const Gift = ({data}: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({params, res, req}) => {
+  const cookie = req ? req.headers.cookie : '';
+  if (req && cookie) {
+    axios.defaults.headers.post.cookie = cookie || '';
+  }
   const token = getCookie(req.headers.cookie, "Authentication");
   const id = params?.id;
   if (!token) {

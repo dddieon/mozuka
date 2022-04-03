@@ -1,0 +1,11 @@
+{
+  "name": "mozuka",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/dddieon/mozuka",
+  "author": "dddieon <ajiop0123@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build-back": "git subtree push --prefix=back child master"
+  }
+}
