@@ -87,9 +87,14 @@ const giftPageStyle = css`
   }
 `;
 
-const Gift = () => {
+interface Props {
+  data: IGift,
+}
+
+const Gift = ({data}: Props) => {
   const [selectedOption, setSelectedOption] = useState("");
-  const {id: giftId, retryCount}: IGift = useLogin.getState().data;
+  // const {id: giftId, retryCount}: IGift = useLogin.getState().data; 스토리지에서 가져오기 보류
+  const {id: giftId, retryCount}: IGift = data;
   const {updateCount} = useLogin.getState();
   const router = useRouter();
 
@@ -171,9 +176,10 @@ export const getServerSideProps: GetServerSideProps = async ({params, res, req})
       }
     }
   }
+  const {data} = await axios.get(`/api/gifts/${id}`);
   return {
     props: {
-      data: null
+      data
     }
   }
 }
