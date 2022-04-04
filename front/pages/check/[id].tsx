@@ -71,14 +71,18 @@ const giftPageStyle = css`
 
 interface Props {
   data: IGift,
+  id: string,
+  text: number
 }
 
-const Gift = ({data}: Props) => {
+const Gift = ({data, id: PID, text}: Props) => {
   const [value, setValue] = useState("");
   const [isInputFocus, setIsInputFocus] = useState(false);
   const router = useRouter();
   const {id} = router.query;
   const setLogin = useLogin.getState().setLogin;
+
+  console.log(PID, text, "G")
 
   const mutation: UseMutationResult = useMutation((option): Promise<{ data: { id: string } }> => axios.post(`/api/gifts/auth/login`, option, {
     withCredentials: true,
@@ -173,20 +177,13 @@ export const getServerSideProps: GetServerSideProps = async ({params, res, req})
   const token = getCookie(req.headers.cookie, "Authentication");
   const id = params?.id;
   if (!token) {
-    try {
-      const {data} = await axios.get(`/api/gifts/${id}`);
-      return {
-        props: {
-          data,
-        }
+    const {data} = await axios.get(`/api/gifts/${id}`);
+    return {
+      props: {
+        data,
+        id,
+        text: 1
       }
-    } catch {
-      res.statusCode = 404;
-      return {
-        props: {
-          data: null,
-        }
-      };
     }
   } else {
     return {
@@ -194,7 +191,9 @@ export const getServerSideProps: GetServerSideProps = async ({params, res, req})
         destination: `/gift/${id}`
       },
       props: {
-        data: null
+        data: null,
+        id,
+        text: 2
       }
     }
   }
