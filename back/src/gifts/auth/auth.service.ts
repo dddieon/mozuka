@@ -28,6 +28,6 @@ export class AuthService {
   async getCookieWithJwtToken(data: { username: string; password: string }) {
     const payload = { username: data.username };
     const token = this.jwtService.sign(payload);
-    return `Authentication=${token}; Path=/; Domain=${process.env.JWT_DOMAIN}; Max-Age=3600`; // todo env to config
+    return `Authentication=${token}; Path=/; Max-Age=3600`; // todo env to config
   }
 }

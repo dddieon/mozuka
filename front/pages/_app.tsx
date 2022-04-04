@@ -7,7 +7,7 @@ import {useEffect} from "react";
 
 const queryClient = new QueryClient();
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACK_URI || 'https://mozuka-back.herokuapp.com';
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_DOMAIN; // reverse proxy
 axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = process.env.NEXT_PUBLIC_BACK_URI || 'https://mozuka-back.herokuapp.com';
 axios.defaults.headers.common['Access-Control-Allow-Credentials'] = 'true';
