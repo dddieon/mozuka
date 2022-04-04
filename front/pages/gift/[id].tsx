@@ -85,6 +85,13 @@ const giftPageStyle = css`
       }
     }
   }
+  
+  .gift-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
 `;
 
 interface Props {
@@ -97,6 +104,7 @@ const Gift = ({data}: Props) => {
   const {id: giftId, retryCount}: IGift = data;
   const {updateCount} = useLogin.getState();
   const router = useRouter();
+  const lastResultId = data?.results[data.results.length -1]?.id;
 
   const mutation: UseMutationResult = useMutation((option): Promise<{ data: { id: number } }> => axios.post(`/api/results`, option), {
     onError: (error, variables, context) => {
@@ -121,6 +129,14 @@ const Gift = ({data}: Props) => {
         option: selectedOption
       });
     }
+  }
+
+  const goResultHistory = (e: React.MouseEvent) => {
+    e.preventDefault();
+    router.push({
+      pathname: `/result/${lastResultId}`,
+      query: {giftId}
+    });
   }
 
   return (
@@ -154,7 +170,12 @@ const Gift = ({data}: Props) => {
         </div>
         {
           !mutation.isLoading ?
-            <Button onClick={submit} bg={'theme'}>선물 받으러 가기</Button>
+            <div className="gift-buttons">
+              <Button onClick={submit} bg={'theme'}>선물 받으러 가기</Button>
+              {
+                lastResultId && <Button onClick={goResultHistory} bg={'lightTheme'} color={'theme'}>기록 확인하기</Button>
+              }
+            </div>
             :
             <Button onClick={(e) => e.preventDefault()} bg={'gray'} bd={'gray'}>선물 요청중...</Button>
         }

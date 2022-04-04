@@ -8,6 +8,7 @@ interface OwnProps {
   size?: keyof typeof fontSizes | null;
   bg?: keyof typeof colors | null;
   bd?: keyof typeof colors | null;
+  color?: keyof typeof colors | null;
   weight?: keyof typeof fontWeights | null;
   onClick?: (e: React.MouseEvent) => void;
   isFixed?: boolean | null;
@@ -44,7 +45,7 @@ const kakaoIconStyle = css`
 `
 
 const Button: FunctionComponent<Props> = (props) => {
-  const {type, style, bg, bd, size, weight, onClick, isFixed, children} = props;
+  const {type, style, bg, bd, color, size, weight, onClick, isFixed, children} = props;
   const isKakao = type === "kakao";
 
   return (
@@ -58,7 +59,7 @@ const Button: FunctionComponent<Props> = (props) => {
         borderRadius: '1rem',
         padding: '1.6rem',
         backgroundColor: bg ? colors[bg] : isKakao ? colors.kakao : colors.gray,
-        color: bg !== "theme" ? colors.black : colors.white,
+        color: color ? colors[color] : bg !== "theme" ? colors.black : colors.white,
         border: bd ? `1px solid ${colors[bd]}` : colors.theme,
         fontSize: size ? fontSizes[size] : fontSizes.normal,
         fontWeight: weight ? fontWeights[weight] : fontWeights.medium,
