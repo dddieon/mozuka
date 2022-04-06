@@ -169,8 +169,29 @@
 </table>
 
 - <a href="https://velog.io/@jsj3282/%EA%B5%AC%EA%B8%80-Chrome-SameSite-%EC%9D%B4%EC%8A%88">참고</a>하여서 쿠키를 추가하였음 (
-  SameSite, Secure )
-- SameSite=None으로 설정할 경우 Secure 속성을 함께 추가
+  SameSite, Secure ) * SameSite=None으로 설정할 경우 Secure 속성을 함께 추가해야 함
+- 그리하여도 여전히 CROSS 도메인간 Set-Cookie가 적용되지 않아 <b>리버스 프록시</b>를 설정
+    1. 리버스프록시: 경로를 마치 클라이언트 서버에 접속하는 것 처럼 매핑을 할 수 있다.
+       <img src="https://i.ibb.co/vqwQR9Z/fef.png"></img>
+    2. 방법:
+       next에서는 rewrites를 제공하고 있어서 프론트 설정만으로 충분히 가능하다. `next.config.js` 파일에서 매핑코드 추가를 하고, axios 기본값으로 설정된 baseUrl을 변경
+        ```
+             async rewrites() {
+                 return [
+                     {
+                         source: '/api/:first*/:second*',
+                         destination: `${process.env.NEXT_PUBLIC_BACK_URI}/api/:first*/:second*`,
+                     },
+                     {
+                         source: '/api/:path*',
+                         destination: `${process.env.NEXT_PUBLIC_BACK_URI}/api/:path*`,
+                     },
+                 ];
+             },
+        ```
+        ```
+            axios.defaults.baseURL = 기존: 백엔드 URL -> 변경: 프론트 URL
+        ```
 
 <br>
 
