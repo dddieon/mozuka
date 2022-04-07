@@ -20,7 +20,10 @@ const mainStyle = css`
     gap: 2.5rem;
     width: 100%;
     margin-bottom: 4.5rem;
-    padding: 0 5.8rem;
+
+    ${screen.pc} {
+      padding: 0 5.8rem;
+    }
   }
 
   > .main-link {
@@ -44,7 +47,7 @@ const Home: NextPage = () => {
         </div>
         <Box image={"/images/gift-box.svg"}
              text={"시작하기를 누르면 새로운 랜프티콘을 생성할 수 있어요."}
-             linkText={"[사용방법 알아보기]"}
+             linkText={"[사용방법 안내 준비중...]"}
              href={"/"}/>
         <div className="main-button-wrap">
           <Link href={'/gift-start'} bg={'theme'}>시작하기</Link>
