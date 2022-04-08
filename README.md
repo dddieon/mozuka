@@ -1,4 +1,8 @@
-## 디자인 미리보기
+## 미리보기
+![Frame 1 (2)](https://user-images.githubusercontent.com/59174247/162442002-31dab56d-eccf-41db-b38a-41ab79cd1e5c.png)
+
+
+## 디자인
 
 ![image](https://user-images.githubusercontent.com/59174247/155881666-231cc304-2ce1-441e-8cef-c99ff173806c.png)
 
