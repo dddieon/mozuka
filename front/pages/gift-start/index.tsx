@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {useRouter} from "next/router";
 import {useMutation, UseMutationResult} from "react-query";
@@ -21,7 +21,12 @@ const pageStyle = css`
     > div {
       max-width: 20rem;
       overflow: hidden;
+
     }
+  }
+
+  h2 {
+    margin-bottom: 0.6rem;
   }
 
   input {
@@ -49,11 +54,12 @@ const GiftStart = () => {
     maxBudget: "",
     minimumBudget: "",
     password: "",
-    retryCount: "1"
+    retryCount: "5"
   });
   const [step, setStep] = useState(1);
   const [isInputFocus, setIsInputFocus] = useState(false);
   const router = useRouter();
+  const nextInput = useRef<HTMLInputElement>(null);
 
   const mutation: UseMutationResult = useMutation((option): Promise<{ data: { id: string } }> => axios.post(`/api/gifts`, option), {
     onError: (error) => {
@@ -68,19 +74,23 @@ const GiftStart = () => {
   useEffect(() => {
     switch (step) {
       case 1:
-        setHeader("표시할 이름을 알려주세요.")
+        setHeader("표시할 이름을 알려주세요.");
         setHeaderBackEvent(() => router.back());
         break;
       case 2:
-        setHeader("표시할 이름을 알려주세요.")
+        setHeader("표시할 이름을 알려주세요.");
         setHeaderBackEvent(() => setStep(prev => prev - 1));
         break;
       case 3:
-        setHeader("금액대를 설정해주세요.")
+        setHeader("금액대를 설정해주세요.");
         setHeaderBackEvent(() => setStep(prev => prev - 1));
         break;
       case 4:
-        setHeader("옵션들을 선택해주세요.")
+        setHeader("옵션들을 선택해주세요.");
+        setHeaderBackEvent(() => setStep(prev => prev - 1));
+        break;
+      case 5:
+        setHeader("사용할 암호를 입력해주세요");
         setHeaderBackEvent(() => setStep(prev => prev - 1));
         break;
     }
@@ -122,20 +132,35 @@ const GiftStart = () => {
   const submit = () => {
     switch (step) {
       case 1:
+        if (!form.getterName) return alert("이름을 입력하세요.");
+        setStep(prev => prev + 1);
+        break;
       case 2:
+        if (!form.giverName) return alert("이름을 입력하세요.");
+        setStep(prev => prev + 1);
+        break;
       case 3:
+        if (!form.maxBudget || !form.minimumBudget) return alert("금액 한도를 입력하세요.");
+        setStep(prev => prev + 1);
+        break;
       case 4:
+        if (!form.retryCount) return alert("재도전 횟수를 입력하세요.");
         setStep(prev => prev + 1);
         break;
       case 5:
+        if (form.password.length < 4) return alert("숫자 4자리 암호를 입력하세요.");
         mutation.mutate(form)
         break;
     }
   }
 
-  const onKeyUp = (e: React.KeyboardEvent) => {
+  const onKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const key = e.key || e.keyCode;
     if (key === "Enter" || key === 13) {
+      const {id} = e.target as HTMLTextAreaElement;
+      if (id === "hasNextInput" && nextInput.current) {
+        return nextInput.current.focus();
+      }
       submit();
     }
   }
@@ -181,6 +206,7 @@ const GiftStart = () => {
                 <H2>한도 금액</H2>
                 <P color={"darkGray"}>최소</P>
                 <input type={"tel"}
+                       id={"hasNextInput"}
                        value={form.minimumBudget}
                        maxLength={9}
                        onChange={e => {
@@ -197,6 +223,7 @@ const GiftStart = () => {
                        onChange={e => {
                          inputHandler(e, "max");
                        }}
+                       ref={nextInput}
                        onKeyUp={onKeyUp}
                        onFocus={() => setIsInputFocus(true)}
                        onBlur={() => setIsInputFocus(false)}
@@ -238,7 +265,7 @@ const GiftStart = () => {
             <div>
               <div>
                 <H2>패스워드</H2>
-                <P color={"darkGray"}>사용할 암호를 입력해주세요</P>
+                <P color={"darkGray"}>전달할 암호를 입력해주세요.</P>
                 <input type={"tel"}
                        value={form.password}
                        maxLength={4}
@@ -248,7 +275,7 @@ const GiftStart = () => {
                        onKeyUp={onKeyUp}
                        onFocus={() => setIsInputFocus(true)}
                        onBlur={() => setIsInputFocus(false)}
-                       placeholder={"4자리 입력"}/>
+                       placeholder={"숫자 4자리 입력"}/>
               </div>
             </div>
             {
