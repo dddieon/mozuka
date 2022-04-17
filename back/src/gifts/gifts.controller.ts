@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   Post,
   Request,
@@ -44,8 +46,14 @@ export class GiftsController {
   async token(@Request() req, @Res() res, @Body() body) {
     const { user } = req;
     const { id } = body;
-    if (!id) throw new Error('id is required');
-    if (user.id !== id) throw new Error('다른 페이지에서 인증된 정보입니다'); // * <참고 1> 여기서 user.sub를 사용한다.
+
+    if (!id) throw new HttpException('id is required', HttpStatus.BAD_REQUEST);
+    if (user.id !== id)
+      // * <참고 1> 여기서 user.sub를 사용한다.
+      throw new HttpException(
+        '다른 페이지에서 인증된 정보입니다',
+        HttpStatus.NOT_ACCEPTABLE,
+      );
     return res.send(user);
   }
 
