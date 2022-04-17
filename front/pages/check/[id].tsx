@@ -71,18 +71,14 @@ const giftPageStyle = css`
 
 interface Props {
   data: IGift,
-  id: string,
-  text: number
 }
 
-const Gift = ({data, id: PID, text}: Props) => {
+const Gift = ({data}: Props) => {
   const [value, setValue] = useState("");
   const [isInputFocus, setIsInputFocus] = useState(false);
   const router = useRouter();
   const {id} = router.query;
   const setLogin = useLogin.getState().setLogin;
-
-  console.log(PID, text, "G")
 
   const mutation: UseMutationResult = useMutation((option): Promise<{ data: { id: string } }> => axios.post(`/api/gifts/auth/login`, option, {
     withCredentials: true,
@@ -91,7 +87,6 @@ const Gift = ({data, id: PID, text}: Props) => {
       alert('올바르지 않은 패스워드입니다.');
     },
     onSuccess: (res) => {
-      console.log("RES", res);
       setLogin({
         // saved to localstorage
         id: String(id),
@@ -176,24 +171,26 @@ export const getServerSideProps: GetServerSideProps = async ({params, res, req})
   }
   const token = getCookie(req.headers.cookie, "Authentication");
   const id = params?.id;
-  if (!token) {
-    const {data} = await axios.get(`/api/gifts/${id}`);
-    return {
-      props: {
-        data,
-        id,
-        text: 1
-      }
-    }
-  } else {
+  try {
+    await axios.post(`/api/gifts/auth/token`, {id}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      withCredentials: true
+    })
     return {
       redirect: {
         destination: `/gift/${id}`
       },
       props: {
         data: null,
-        id,
-        text: 2
+      }
+    }
+  } catch (e) {
+    const {data} = await axios.get(`/api/gifts/${id}`);
+    return {
+      props: {
+        data,
       }
     }
   }

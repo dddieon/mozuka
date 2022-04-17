@@ -85,7 +85,7 @@ const giftPageStyle = css`
       }
     }
   }
-  
+
   .gift-buttons {
     width: 100%;
     display: flex;
@@ -104,7 +104,7 @@ const Gift = ({data}: Props) => {
   const {id: giftId, retryCount}: IGift = data;
   const {updateCount} = useLogin.getState();
   const router = useRouter();
-  const lastResultId = data?.results[data.results.length -1]?.id;
+  const lastResultId = data?.results[data.results.length - 1]?.id;
 
   const mutation: UseMutationResult = useMutation((option): Promise<{ data: { id: number } }> => axios.post(`/api/results`, option), {
     onError: (error, variables, context) => {
@@ -187,20 +187,27 @@ const Gift = ({data}: Props) => {
 export const getServerSideProps: GetServerSideProps = async ({params, res, req}) => {
   const token = getCookie(req.headers.cookie, "Authentication");
   const id = params?.id;
-  if (!token) {
+  try {
+    await axios.post(`/api/gifts/auth/token`, {id}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      withCredentials: true
+    })
+    const {data} = await axios.get(`/api/gifts/${id}`);
+    return {
+      props: {
+        data
+      }
+    }
+  } catch (e) {
     return {
       redirect: {
         destination: `/check/${id}`
       },
       props: {
-        data: null
+        data: null,
       }
-    }
-  }
-  const {data} = await axios.get(`/api/gifts/${id}`);
-  return {
-    props: {
-      data
     }
   }
 }

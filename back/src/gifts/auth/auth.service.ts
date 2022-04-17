@@ -26,8 +26,11 @@ export class AuthService {
   }
 
   async getCookieWithJwtToken(data: { username: string; password: string }) {
-    const payload = { username: data.username };
+    const payload = { username: data.username, sub: data.username }; // <참고 1> 서명할 때 작성한 내용은 jwt 검증할 때 해독된다
     const token = this.jwtService.sign(payload);
-    return `Authentication=${token}; Path=/; Max-Age=3600`; // todo env to config
+    return {
+      token,
+      cookie: `Authentication=${token}; Path=/; Max-Age=1d`,
+    };
   }
 }

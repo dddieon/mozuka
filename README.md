@@ -1,6 +1,6 @@
 ## 미리보기
-![Frame 1 (2)](https://user-images.githubusercontent.com/59174247/162442002-31dab56d-eccf-41db-b38a-41ab79cd1e5c.png)
 
+![Frame 1 (2)](https://user-images.githubusercontent.com/59174247/162442002-31dab56d-eccf-41db-b38a-41ab79cd1e5c.png)
 
 ## 디자인
 
@@ -153,6 +153,9 @@
           추가문서</a>)
 
         - setCookie에 성공하였으나, sameSite 이슈 발생: 개발이슈 part 참고
+    3. jwt-strategy 를 통해 AuthGuard로 보안하기
+        - 어떤 페이지에서 인증된 상태로, 다른 url에 접속하여 인증을 할 때를 대비하였다.
+        - `<참고>` 라는 코드가 붙은 부분을 보면, sign()을 할 때 payload로 건네주는 인자는 나중에 JWT를 해독하여 유저명 비교 등에 사용된다.
 
 💦 <b>개발이슈</b>
 
@@ -223,11 +226,14 @@
 
 - FRONT TODO
     1. ripple css
-    2. form validation check
+    2. ~~form validation check~~
     3. ~~header back button remove (history.length check)~~
     4. `https://qr.kakaopay.com/${userId}` 형식으로 결과 공유 링크 변경
     5. 결과페이지 무한스크롤
     6. '체험하기' 페이지 생성
+    7. 토큰 검증
+    8. favicon 추가
 - BACK TODO
     1. passport authentication
     2. 상품권 및 선물 링크 수집 서버
+    3. 만료 gift 처리
