@@ -121,6 +121,7 @@ const Gift = ({data}: Props) => {
 
   const submit = async (e: React.MouseEvent) => {
     e.preventDefault();
+    if (mutation.isLoading) return;
     if (!selectedOption) {
       return alert("선물 종류를 선택하세요.");
     } else {

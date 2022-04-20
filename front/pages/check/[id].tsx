@@ -99,8 +99,7 @@ const Gift = ({data}: Props) => {
 
   const submit = async (e: React.MouseEvent) => {
     e.preventDefault();
-
-    // todo login
+    if (mutation.isLoading) return;
     try {
       if (value.length) {
         mutation.mutate({username: data.id, password: value})
