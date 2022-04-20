@@ -231,9 +231,10 @@
     4. `https://qr.kakaopay.com/${userId}` 형식으로 결과 공유 링크 변경
     5. 결과페이지 무한스크롤
     6. '체험하기' 페이지 생성
-    7. 토큰 검증
+    7. ~~토큰 검증~~
     8. favicon 추가
+    9. app 단위 로딩 UI
 - BACK TODO
-    1. passport authentication
+    1. ~~passport authentication~~
     2. 상품권 및 선물 링크 수집 서버
     3. 만료 gift 처리

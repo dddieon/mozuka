@@ -169,7 +169,7 @@ const Gift = ({data}: Props) => {
           }
         </div>
         {
-          !mutation.isLoading ?
+          !mutation.isLoading && !mutation.isSuccess ?
             <div className="gift-buttons">
               <Button onClick={submit} bg={'theme'}>선물 받으러 가기</Button>
               {
