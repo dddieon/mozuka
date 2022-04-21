@@ -97,8 +97,7 @@ const Gift = ({data}: Props) => {
     },
   });
 
-  const submit = async (e: React.MouseEvent) => {
-    e.preventDefault();
+  const submit = async () => {
     if (mutation.isLoading) return;
     try {
       if (value.length) {
@@ -108,6 +107,13 @@ const Gift = ({data}: Props) => {
       }
     } catch (e) {
       alert("올바른 요청이 아닙니다.");
+    }
+  }
+
+  const onKeyUp = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const key = e.key || e.keyCode;
+    if (key === "Enter" || key === 13) {
+      await submit();
     }
   }
 
@@ -151,6 +157,7 @@ const Gift = ({data}: Props) => {
                        onChange={(e) => setValue(e.target.value)} max={8}
                        onFocus={() => setIsInputFocus(true)}
                        onBlur={() => setIsInputFocus(false)}
+                       onKeyUp={onKeyUp}
                 />
                 <Button isFixed={isInputFocus} onClick={submit} bg={'theme'}>선물 받으러 가기</Button>
               </div>

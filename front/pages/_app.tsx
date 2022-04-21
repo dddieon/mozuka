@@ -41,9 +41,9 @@ function MyApp({Component, pageProps}: AppProps) {
   const router = useRouter();
   useEffect(() => {
     const interval = setInterval(() => {
-      if (interval) clearInterval(interval);
       if (window.Kakao && !window.Kakao.isInitialized()) {
-        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY)
+        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
+        if (interval) clearInterval(interval);
       }
     }, 100); // next/script를 사용하면서도 kakao init을 하는 더 좋은 방법이 없을까?
   }, []);
