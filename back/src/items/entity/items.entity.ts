@@ -1,7 +1,14 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
 import { Results } from '../../results/entity/results.entity';
 
 @Entity()
+@Unique(['url'])
 export class Items {
   @PrimaryGeneratedColumn('uuid')
   uuid: string;
