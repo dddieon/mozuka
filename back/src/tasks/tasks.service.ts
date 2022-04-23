@@ -58,11 +58,15 @@ export class TaskService {
           });
         }
       });
-      const createPath = `http${
-        process.env.JWT_DOMAIN !== 'localhost' ? 's' : ''
-      }://${process.env.JWT_DOMAIN}:${process.env.PORT}/api/items`;
+
+      let createPath = '';
+      if (process.env.JWT_DOMAIN === 'localhost') {
+        createPath = `http://localhost:${process.env.PORT}/api/items`;
+      } else {
+        createPath = `https://${process.env.JWT_DOMAIN}/api/items`;
+      }
+
       await axios.post(createPath, {
-        // create items
         gifts,
         option: 'all',
       });
