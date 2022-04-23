@@ -282,7 +282,8 @@ const GiftStart = () => {
               !mutation.isLoading && !mutation.isSuccess ?
                 <Button isFixed={isInputFocus} onClick={submit} bg={'theme'}>발급하기</Button>
                 :
-                <Button onClick={(e) => e.preventDefault()} bg={'gray'} bd={'gray'}>발급 요청중...</Button>
+                <Button isFixed={isInputFocus} onClick={(e) => e.preventDefault()} bg={'gray'} bd={'gray'}>발급
+                  요청중...</Button>
             }
           </div>
         </Layout>
