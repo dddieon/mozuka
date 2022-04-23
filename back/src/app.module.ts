@@ -8,6 +8,7 @@ import * as ormconfig from './ormconfig';
 import { GiftsModule } from './gifts/gifts.module';
 import { ItemsModule } from './items/items.module';
 import { ResultsModule } from './results/results.module';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ResultsModule } from './results/results.module';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot(ormconfig),
+    TasksModule,
     GiftsModule,
     ItemsModule,
     ResultsModule,
