@@ -28,6 +28,7 @@ const GiftLink = ({data}: Props) => {
 
   useEffect(() => {
     setHeader("링크가 생성되었어요");
+    navigator.clipboard.writeText(location.origin + `/check/${giftId}`);
     return () => {
       setHeaderBackEvent(() => router.back());
       setHeader("");
