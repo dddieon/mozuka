@@ -100,7 +100,6 @@ interface Props {
 
 const Gift = ({data}: Props) => {
   const [selectedOption, setSelectedOption] = useState("");
-  const [isInputFocus, setIsInputFocus] = useState(false);
   // const {id: giftId, retryCount}: IGift = useLogin.getState().data; 스토리지에서 가져오기 보류
   const {id: giftId, retryCount}: IGift = data;
   const {updateCount} = useLogin.getState();
@@ -112,7 +111,6 @@ const Gift = ({data}: Props) => {
       alert('불러올 수 있는 상품이 존재하지 않습니다. 다른 옵션을 선택해주세요.');
     },
     onSuccess: (data) => {
-      setIsInputFocus(false);
       updateCount(retryCount - 1);
       router.push({
         pathname: `/result/${data.data.id}`,
@@ -127,7 +125,6 @@ const Gift = ({data}: Props) => {
     if (!selectedOption) {
       return alert("선물 종류를 선택하세요.");
     } else {
-      setIsInputFocus(true);
       mutation.mutate({
         id: router.query.id,
         option: selectedOption
@@ -178,12 +175,12 @@ const Gift = ({data}: Props) => {
               <Button onClick={submit} bg={'theme'}>선물 받으러 가기</Button>
               {
                 lastResultId &&
-                <Button isFixed={isInputFocus} onClick={goResultHistory} bg={'lightTheme'} color={'theme'}>기록
+                <Button onClick={goResultHistory} bg={'lightTheme'} color={'theme'}>기록
                   확인하기</Button>
               }
             </div>
             :
-            <Button isFixed={isInputFocus} onClick={(e) => e.preventDefault()} bg={'gray'} bd={'gray'}>선물
+            <Button onClick={(e) => e.preventDefault()} bg={'gray'} bd={'gray'}>선물
               요청중...</Button>
         }
       </div>

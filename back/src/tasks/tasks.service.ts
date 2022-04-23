@@ -54,7 +54,7 @@ export class TaskService {
             imageUrl: i.item.imageUrl,
             name: i.item.name,
             price: i.item.discountedPrice,
-            url: `https://gift.kakao.com/product/${i.item.giftItemId}`,
+            url: `https://gift.kakao.com/product/${i.item.productId}`,
           });
         }
       });
