@@ -43,6 +43,7 @@ export class ResultsService {
     }
     switch (body.option) {
       case 'delivery':
+      case 'voucher':
         // 3-1. itemsRepository에서 랜덤으로 1개
         try {
           const randomItem = await this.itemsRepository
@@ -50,6 +51,7 @@ export class ResultsService {
             .where('Items.price > :minBudget', {
               minBudget: gift.minimumBudget,
             })
+            .andWhere(`Items.option = :option`, { option: body.option })
             .andWhere('Items.price < :maxBudget', { maxBudget: gift.maxBudget })
             .orderBy('RAND()')
             .limit(1)
@@ -79,11 +81,6 @@ export class ResultsService {
           option: body.option,
           price: randomCash,
         });
-      case 'voucher':
-        throw new HttpException(
-          '현재 뽑을 수 있는 상품권이 없어요',
-          HttpStatus.NOT_FOUND,
-        );
       default:
     }
   }
