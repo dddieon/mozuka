@@ -25,8 +25,8 @@ export class Gifts {
   @Column()
   maxBudget: number;
 
-  // @Column()
-  // option: options[]; // 'item' | 'voucher' | 'cash'
+  @Column()
+  option: 'delivery' | 'voucher' | 'cash';
 
   @Column()
   retryCount: number;

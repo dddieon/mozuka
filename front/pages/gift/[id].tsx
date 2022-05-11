@@ -14,8 +14,8 @@ import {getCookie} from "../../utils";
 
 
 const options = [{
-  value: 'item',
-  label: '선물'
+  value: 'delivery',
+  label: '배송선물'
 }, {
   value: 'voucher',
   label: '상품권'
@@ -108,6 +108,7 @@ const Gift = ({data}: Props) => {
 
   const mutation: UseMutationResult = useMutation((option): Promise<{ data: { id: number } }> => axios.post(`/api/results`, option), {
     onError: (error, variables, context) => {
+      console.log(error, "ERROR", context);
       alert('불러올 수 있는 상품이 존재하지 않습니다. 다른 옵션을 선택해주세요.');
     },
     onSuccess: (data) => {

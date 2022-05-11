@@ -33,57 +33,77 @@ export class TaskService {
     // );
   }
 
-  async getGifts() {
-    const now = String(+new Date());
-    const paths = [
-      {
-        url: `https://gift.kakao.com/a/v1/best/delivery?page=0&size=100&_=${now}`,
-        name: '배송상품',
-      },
-      {
-        url: `https://gift.kakao.com/a/v1/best/coupon?_=${now}`,
-        name: '교환권',
-      },
-    ];
+  async getItems() {
     try {
-      const { data } = await axios.get(paths[0].url);
-      const gifts = [];
-      data.forEach((i) => {
-        if (i.type === 'RANKING') {
-          gifts.push({
-            imageUrl: i.item.imageUrl,
-            name: i.item.name,
-            price: i.item.discountedPrice,
-            url: `https://gift.kakao.com/product/${i.item.productId}`,
-          });
-        }
-      });
+      const now = String(+new Date());
+      const paths = [
+        {
+          url: `https://gift.kakao.com/a/v1/best/delivery?page=0&size=100&_=${now}`,
+          name: '배송상품',
+        },
+        {
+          url: `https://gift.kakao.com/a/v1/best/coupon?_=${now}`,
+          name: '교환권',
+        },
+      ];
 
       let createPath = '';
-      if (process.env.JWT_DOMAIN === 'localhost') {
+      if (process.env.NODE_ENV !== 'production') {
         createPath = `http://localhost:${process.env.PORT}/api/items`;
       } else {
         createPath = `https://${process.env.JWT_DOMAIN}/api/items`;
       }
 
-      await axios.post(createPath, {
-        gifts,
-        option: 'all',
-      });
+      for (const path of paths) {
+        const { data } = await axios.get(path.url);
+        const items = [];
+        if (path.name === '배송상품') {
+          data.forEach((i) => {
+            if (i.type === 'RANKING') {
+              items.push({
+                imageUrl: i.item.imageUrl,
+                name: i.item.name,
+                price: i.item.discountedPrice,
+                url: `https://gift.kakao.com/product/${i.item.productId}`,
+                option: 'delivery',
+              });
+            }
+          });
+        } else {
+          data.bestGroupItemsList.forEach((j) => {
+            j.bestItems.forEach((i) => {
+              if (i.type === 'RANKING') {
+                items.push({
+                  imageUrl: i.item.imageUrl,
+                  name: i.item.name,
+                  price: i.item.discountedPrice,
+                  url: `https://gift.kakao.com/product/${i.item.productId}`,
+                  option: 'voucher',
+                });
+              }
+            });
+          });
+        }
+
+        await axios.post(createPath, {
+          gifts: items,
+          option: 'all',
+        });
+      }
     } catch (error) {
       console.log(error);
     }
   }
 
-  @Cron('0 0 * * 0', { name: '주 1회 - 배송상품 수집' }) // “At 00:00 on Sunday.”
+  @Cron('0 10 * * 0', { name: '주 1회 - 상품 수집' })
   scrapItemWeek() {
-    this.logger.log('주 1회 - 배송상품 수집');
-    return this.getGifts();
+    this.logger.log('주 1회 - 상품 수집');
+    return this.getItems();
   }
 
-  @Cron(new Date(Date.now() + 10 * 1000), { name: '최초 수집 - 배송상품 수집' }) // 앱이 시작된 후 10초 후에 실행
+  @Cron(new Date(Date.now() + 10 * 1000), { name: '최초 수집 - 상품 수집' })
   scrapItemOnce() {
-    this.logger.log('최초 수집 - 배송상품 수집');
-    return this.getGifts();
+    this.logger.log('최초 수집 - 상품 수집');
+    return this.getItems();
   }
 }

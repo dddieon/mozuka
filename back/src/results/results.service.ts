@@ -42,7 +42,7 @@ export class ResultsService {
       );
     }
     switch (body.option) {
-      case 'item':
+      case 'delivery':
         // 3-1. itemsRepository에서 랜덤으로 1개
         try {
           const randomItem = await this.itemsRepository

@@ -9,6 +9,8 @@ import {
 } from 'typeorm';
 import { Results } from '../../results/entity/results.entity';
 
+export const itemOptions = ['delivery', 'voucher'] as const;
+
 @Entity()
 @Unique(['url'])
 export class Items {
@@ -26,6 +28,9 @@ export class Items {
 
   @Column()
   price: number;
+
+  @Column()
+  option: 'delivery' | 'voucher';
 
   @OneToMany(() => Results, (result) => result.id, { nullable: true })
   results: Results[];
