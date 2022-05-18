@@ -95,15 +95,20 @@ export class TaskService {
     }
   }
 
-  @Cron('0 10 * * 0', { name: '주 1회 - 상품 수집' })
+  @Cron('0 0 * * 0', { name: '주 1회 - 상품 수집' })
   scrapItemWeek() {
     this.logger.log('주 1회 - 상품 수집');
-    return this.getItems();
+    try {
+      return this.getItems();
+    } catch (e) {
+      console.error(e);
+      return [];
+    }
   }
 
-  @Cron(new Date(Date.now() + 10 * 1000), { name: '최초 수집 - 상품 수집' })
-  scrapItemOnce() {
-    this.logger.log('최초 수집 - 상품 수집');
-    return this.getItems();
-  }
+  // @Cron(new Date(Date.now() + 10 * 1000), { name: '최초 수집 - 상품 수집' })
+  // scrapItemOnce() {
+  //   this.logger.log('최초 수집 - 상품 수집');
+  //   return this.getItems();
+  // }
 }
