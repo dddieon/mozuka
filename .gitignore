@@ -33,6 +33,7 @@ yarn-error.log*
 /front/.env
 /back/.env
 /back/.env.production
+/back/.env.development
 
 # vercel
 .vercel
