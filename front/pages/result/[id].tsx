@@ -22,6 +22,10 @@ const pageStyle = css`
     &.past {
       padding: 0;
       margin: 1.4rem 0;
+
+      > div {
+        max-width: calc(100% - 5.3rem);
+      }
     }
 
     &.cash {
